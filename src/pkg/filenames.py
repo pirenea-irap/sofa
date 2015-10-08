@@ -33,7 +33,7 @@ class FilesAndDirs(object):
         list_years = []
 
         if not os.path.isdir(dirname):
-            print("get_years - Not a directory: ", dirname)
+            print("get_years - Not a directory: ", dirname, self.__class__)
         else:
             li = os.listdir(dirname)
             for y in li:

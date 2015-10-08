@@ -13,10 +13,6 @@ from PyQt5.QtCore import pyqtSignal
 from gui.analysis_qt import Ui_DockWidget_Analysis
 from pkg.pipeline import Pipeline
 
-__updated__ = "2015-10-08"
-__version__ = "$Revision$"
-# $Source$
-
 
 class AnalysisGUI(QtWidgets.QDockWidget):
 
