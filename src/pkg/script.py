@@ -7,6 +7,7 @@ Created on 20 nov. 2014
 pkg1.Script
 """
 import os.path
+import logging
 
 
 class Script(object):
@@ -15,6 +16,7 @@ class Script(object):
     Class to manage old script files in text format.
     Extract useful parameters and fill an XML file with them
     """
+    logger = logging.getLogger('sofa')
 
     def __init__(self, filename=""):
         """
@@ -40,6 +42,7 @@ class Script(object):
         ejectbuf = []
         excit = []
         eject = []
+        Script.logger.debug("from script find_buffers")
 
         # Read txt file, if it has been previously created by a Dataset.read()
         # """

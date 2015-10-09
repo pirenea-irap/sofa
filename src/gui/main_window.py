@@ -15,7 +15,7 @@ class MainWindowGUI(QtWidgets.QMainWindow):
     """ constructor """
 
     def __init__(self, parent=None):
-        super(MainWindowGUI, self).__init__(parent)
+        super().__init__(parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
@@ -77,8 +77,16 @@ if __name__ == '__main__':
     if translatorQT.load("qt_" + "fr", path):
         app.installTranslator(translatorQT)
 
+    """ Logging"""
+    from pkg.logs import Logs
+    log = Logs("sofa").setup_debug_logger()
+#     log = Logs("sofa").setup_error_logger()
+    log.debug("debug test1")
+
+    """ START here..."""
     """ START here..."""
     win = MainWindowGUI()
+    log.info("debug test2")
     win.add_data_selector()
     win.add_analysis()
     win.add_parameters()
