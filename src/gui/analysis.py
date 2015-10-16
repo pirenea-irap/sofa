@@ -1,20 +1,23 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#
+#        Copyright (c) IRAP CNRS
+#        Odile Coeur-Joly, Toulouse, France
+#
 """
-File: D:/S.O.F.T.S/PIRENEA/PYTHON/ProjPyDev1/src/gui/analysis.py
 
-Created on: 20 févr. 2015
-@author: Odile
-
-gui.analysis.
+gui.analysis created on 20 févr. 2015
 """
-from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QDockWidget
 from PyQt5.QtCore import pyqtSignal
 
 from gui.analysis_qt import Ui_DockWidget_Analysis
 from pkg.pipeline import Pipeline
+import logging
+log = logging.getLogger('root')
 
 
-class AnalysisGUI(QtWidgets.QDockWidget):
+class AnalysisGUI(QDockWidget):
 
     """
     classdocs
@@ -26,7 +29,7 @@ class AnalysisGUI(QtWidgets.QDockWidget):
     plotMassRaisedSignal = pyqtSignal(
         object, object, object, float, float, float, bool)
     plotPeaksRaisedSignal = pyqtSignal(
-        object, object, object, object, float, int, float, float, bool)
+        object, object, object, object, float, int, float, float)
 
     def __init__(self, parent=None):
         """
@@ -66,7 +69,7 @@ class AnalysisGUI(QtWidgets.QDockWidget):
         self.ui.doubleSpinBox_EndMass.valueChanged.connect(self.peaks_event)
 
     def signal_event(self):
-        #         print("sender signal_event", self.sender())
+        log.debug("event from %s", self.sender())
         self.start_signal = int(self.ui.spinBox_StartSignal.value())
         self.end_signal = int(self.ui.spinBox_EndSignal.value())
         self.hann = self.ui.checkBox_Hann.isChecked()
@@ -76,7 +79,7 @@ class AnalysisGUI(QtWidgets.QDockWidget):
         self.step = float(self.ui.doubleSpinBox_Step.value()) * 1e-6
 
     def mass_event(self):
-        #         print("sender mass_event", self.sender())
+        log.debug("event from %s", self.sender())
         self.ref_mass = float(self.ui.doubleSpinBox_RefMass.value())
         self.cyclo_freq = float(self.ui.doubleSpinBox_CycloFreq.value())
         self.mag_freq = float(self.ui.doubleSpinBox_MagFreq.value())
@@ -85,7 +88,7 @@ class AnalysisGUI(QtWidgets.QDockWidget):
         self.hold = self.ui.checkBox_Hold.isChecked()
 
     def peaks_event(self):
-        #         print("sender peaks_event", self.sender())
+        log.debug("event from %s", self.sender())
         self.mph = float(self.ui.doubleSpinBox_PeakHeight.value())
         self.mpd = int(self.ui.spinBox_PeakDistance.value())
         self.peaks_x1 = float(self.ui.doubleSpinBox_StartMass.value())
@@ -111,14 +114,14 @@ class AnalysisGUI(QtWidgets.QDockWidget):
         self.ui.checkBox_AutoUpdate.setChecked(False)
 
     def new_analysis(self, filename):
-        #         print("sender new_analysis ", self.sender())
+        log.info("analysis of %s", filename)
         shortname = str(filename).split(sep="\\")
         self.shortname = shortname[-1]
         self.ui.lineEdit_File.setText(self.shortname)
         self.ui.pushButton_UpdatePlots.setEnabled(True)
         self.ui.checkBox_AutoUpdate.setEnabled(True)
 
-#         print("PIPELINE started...")
+        log.info("PIPELINE started...")
         self.pip = Pipeline(filename)
 
         # Update parameters box
@@ -132,18 +135,16 @@ class AnalysisGUI(QtWidgets.QDockWidget):
         self.ui.spinBox_DefEndSignal.setValue(self.pip.end)
 
         self.signal_event()
-
         self.mass_event()
-
         self.peaks_event()
 
         if self.ui.checkBox_AutoUpdate.isChecked():
             self.emit_plot_signals()
         else:
             self.update_pipeline()
-#         self.update_pipeline()
 
     def update_pipeline(self):
+        log.debug("...")
         self.pip.process_signal(
             self.start_signal, self.end_signal, self.hann, self.half, self.zero, self.zero_twice)
         self.pip.process_spectrum(
@@ -153,8 +154,7 @@ class AnalysisGUI(QtWidgets.QDockWidget):
         self.ui.spinBox_PeakDistanceFound.setValue(self.pip.mpd)
 
     def emit_plot_signals(self):
-        #         print("sender emit_plot_signals", self.sender())
-
+        log.debug("event from %s", self.sender())
         self.update_pipeline()
         self.plotSigRaisedSignal.emit(
             self.shortname, self.pip.signal, float(self.step),
@@ -177,4 +177,9 @@ class AnalysisGUI(QtWidgets.QDockWidget):
         self.plotPeaksRaisedSignal.emit(
             self.shortname, y, x, self.pip.ind,
             float(self.mph), int(self.mpd), float(self.peaks_x1),
-            float(self.peaks_x2), bool(self.hold))
+            float(self.peaks_x2))
+
+if __name__ == '__main__':
+    pass
+else:
+    log.info("Importing... %s", __name__)
