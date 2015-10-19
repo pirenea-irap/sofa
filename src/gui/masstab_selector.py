@@ -1,8 +1,11 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#
+#        Copyright (c) IRAP CNRS
+#        Odile Coeur-Joly, Toulouse, France
+#
 """
-This module manages the display of the data selector.
-Created on 02 dec. 2014
-@author: Odile
+This module manages the GUI of the masstab selector.
 """
 from PyQt5.QtWidgets import QDockWidget
 from PyQt5.QtGui import QStandardItem, QStandardItemModel

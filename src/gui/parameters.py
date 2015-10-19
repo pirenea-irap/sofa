@@ -1,8 +1,11 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#
+#        Copyright (c) IRAP CNRS
+#        Odile Coeur-Joly, Toulouse, France
+#
 """
-Created on 11 dec. 2014
-@author: Odile
-$Source$
+This module manages the GUI of the parameters viewer.
 """
 from PyQt5.QtWidgets import QDockWidget
 

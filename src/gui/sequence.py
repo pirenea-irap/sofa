@@ -1,9 +1,11 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#
+#        Copyright (c) IRAP CNRS
+#        Odile Coeur-Joly, Toulouse, France
+#
 """
-Created on 6 janv. 2015
-@author: Odile
-
-gui.sequence
+This module manages the GUI of the sequence viewer.
 """
 
 from PyQt5.QtGui import QStandardItemModel

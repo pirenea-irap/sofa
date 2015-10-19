@@ -1,13 +1,17 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#
+#        Copyright (c) IRAP CNRS
+#        Odile Coeur-Joly, Toulouse, France
+#
 """
-File: D:/S.O.F.T.S/PIRENEA/PYTHON/ProjPyDev1/src/pkg1/peaks.py
+Detect peaks automatically.
+Picked up from internet.
 
-Created on: 24 févr. 2015
-@author: Odile
-
-pkg1.peaks
 """
 import numpy as np
+import logging
+log = logging.getLogger('root')
 
 
 class Peaks(object):
@@ -280,4 +284,4 @@ if __name__ == '__main__':
     plt.show()
 
 else:
-    print("\nImporting... ", __name__)
+    log.info("Importing... ", __name__)

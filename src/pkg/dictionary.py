@@ -1,9 +1,11 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#
+#        Copyright (c) IRAP CNRS
+#        Odile Coeur-Joly, Toulouse, France
+#
 """
-Created on 18 dec. 2014
-@author: Odile
-
-pkg1.Dictionary
+This module manages the dictionary of XML parameters.
 """
 
 

@@ -5,8 +5,7 @@
 #        Odile Coeur-Joly, Toulouse, France
 #
 """
-
-gui.data_selector created on 02 dec. 2014
+This module manages the GUI of the data selector.
 """
 from PyQt5.QtWidgets import QDockWidget
 from PyQt5.QtCore import pyqtSignal

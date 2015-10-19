@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#
+#        Copyright (c) IRAP CNRS
+#        Odile Coeur-Joly, Toulouse, France
+#
 """
-Created on 20 nov. 2014
-@author: Odile
-
-pkg1.Script
+Process PIRENEA scripts.
 """
 import os.path
 import logging
+log = logging.getLogger("root")
 
 
 class Script(object):
@@ -16,7 +18,6 @@ class Script(object):
     Class to manage old script files in text format.
     Extract useful parameters and fill an XML file with them
     """
-    logger = logging.getLogger('sofa')
 
     def __init__(self, filename=""):
         """
@@ -42,7 +43,6 @@ class Script(object):
         ejectbuf = []
         excit = []
         eject = []
-        Script.logger.debug("from script find_buffers")
 
         # Read txt file, if it has been previously created by a Dataset.read()
         # """
@@ -51,10 +51,9 @@ class Script(object):
                 for line in file:
                     linew = line.split()
                     # find all buffers eject/excit
-#                     if line[0] == 'B' and len(linew) > 5:
                     if line[0] == 'B' and len(linew) > 1:
                         buffers.append(line.split())
-                        if "eject" in line:
+                        if ("eject" in line) or ("elect" in line):
                             ejectbuf.append(line.split())
                         else:
                             excitbuf.append(line.split())
@@ -82,6 +81,21 @@ class Script(object):
                 if self.filename.find('E0') > 0 and len(self.detectBuffer) > 4:
                     self.detection = self.detectBuffer[4]
                     self.excitation = excit[4]
+                if self.filename.find('F0') > 0 and len(self.detectBuffer) > 5:
+                    self.detection = self.detectBuffer[5]
+                    self.excitation = excit[5]
+                if self.filename.find('G0') > 0 and len(self.detectBuffer) > 6:
+                    self.detection = self.detectBuffer[6]
+                    self.excitation = excit[6]
+                if self.filename.find('H0') > 0 and len(self.detectBuffer) > 7:
+                    self.detection = self.detectBuffer[7]
+                    self.excitation = excit[7]
+                if self.filename.find('I0') > 0 and len(self.detectBuffer) > 8:
+                    self.detection = self.detectBuffer[8]
+                    self.excitation = excit[8]
+                if self.filename.find('J0') > 0 and len(self.detectBuffer) > 9:
+                    self.detection = self.detectBuffer[9]
+                    self.excitation = excit[9]
 
                 for buf in buffers:
                     if buf[1] == self.excitation:
@@ -100,16 +114,13 @@ class Script(object):
                         else:
                             self.excitDuration = 0.0
 
-#                 print("excit duration (s) =", self.excitDuration)
-#
-#                 print("all ejections :", self.ejectBuffer)
-#                 print("ejections used : ", self.ejection)
-#
-#                 print("all excitations :", self.excitBuffer)
-#                 print("excitation used : ", self.excitation)
-#
-#                 print("all detections :", self.detectBuffer)
-#                 print("detection used : ", self.detection)
+                log.debug("excit duration (s) = %s", self.excitDuration)
+                log.debug("all ejections = %s", self.ejectBuffer)
+                log.debug("ejections used = %s", self.ejection)
+                log.debug("all excitations = %s", self.excitBuffer)
+                log.debug("excitation used = %s", self.excitation)
+                log.debug("all detections = %s", self.detectBuffer)
+                log.debug("detection used = %s", self.detection)
         else:
             print("Filename does not exist:", self.filename + "_sc.txt")
 

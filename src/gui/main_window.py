@@ -1,8 +1,11 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#
+#        Copyright (c) IRAP CNRS
+#        Odile Coeur-Joly, Toulouse, France
+#
 """
-This module manages the display of the data selector.
-Created on 02 dec. 2014
-@author: Odile
+this module manages the main GUI.
 """
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QMainWindow, QApplication

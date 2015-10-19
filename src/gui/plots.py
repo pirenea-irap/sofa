@@ -1,9 +1,11 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#
+#        Copyright (c) IRAP CNRS
+#        Odile Coeur-Joly, Toulouse, France
+#
 """
-Created on 2 f�vr. 2015
-@author: Odile
-
-gui.plots
+This module manages the GUI of the plots viewer.
 """
 import numpy as np
 import logging

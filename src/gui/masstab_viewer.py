@@ -1,14 +1,16 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#
+#        Copyright (c) IRAP CNRS
+#        Odile Coeur-Joly, Toulouse, France
+#
 """
-This module manages the display of the data selector.
-
-Created on 02 dec. 2014
-@author: Odile
-
+This module manages the GUI of the masstab viewer.
 """
 import os
 
 from PyQt5.QtWidgets import QDockWidget
+from PyQt5.QtWidgets import QFileDialog
 
 from gui.masstab_viewer_qt import Ui_DockWidget_MassTabViewer
 from pkg.peaks import Peaks
@@ -92,7 +94,7 @@ class MassTabViewerGUI(QDockWidget):
     def write_file(self):
         log.debug("event from %s", self.sender())
         #         if self.dir_name:
-        filename = QtWidgets.QFileDialog.getSaveFileName(
+        filename = QFileDialog.getSaveFileName(
             self, 'MassTab File', self.dir_name, filter='masstab*.txt')
         if filename:
             with open(filename, mode="w", encoding='utf_8') as file:

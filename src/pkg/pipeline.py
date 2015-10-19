@@ -1,11 +1,11 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#
+#        Copyright (c) IRAP CNRS
+#        Odile Coeur-Joly, Toulouse, France
+#
 """
-File: D:/S.O.F.T.S/PIRENEA/PYTHON/ProjPyDev1/src/pkg1/pipeline.py
-
-Created on: 24 févr. 2015
-@author: Odile
-
-pkg1.pipeline.
+Process PIRENEA data.
 """
 
 import numpy as np

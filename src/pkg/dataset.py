@@ -1,8 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#
+#        Copyright (c) IRAP CNRS
+#        Odile Coeur-Joly, Toulouse, France
+#
+# -*- coding: utf-8 -*-
 """
-Created on 16 mai 2014.
-@author: Odile
+This module manages the PIRENEA raw datasets.
 """
 import os.path
 import struct
@@ -13,6 +17,8 @@ from numpy.core import umath as math
 
 import numpy as np
 from pkg.script import Script
+import logging
+log = logging.getLogger('root')
 
 
 class AlyxanRawDataset(object):
@@ -48,17 +54,6 @@ class AlyxanRawDataset(object):
         step = 0.0
 
         try:
-            t = time.time()
-            dt = np.dtype([('length', '>i4', (1,))])
-            record_dtype1 = np.dtype(
-                [('length', '>i4'), ('samples', '>f', (524288,)), ('step', '>f')])
-            data = np.fromfile(filename, dtype=record_dtype1)
-            # NB: count can be omitted -- it just reads the whole file then
-            points = data['length']
-            signal = data['samples'].ravel()
-            step = data['step']
-            t1 = time.time() - t
-
             file = open(self.filename, mode="rb")
             # Read the first 4 bytes and convert to Int = number of points
             contents = file.read(4)
@@ -75,9 +70,9 @@ class AlyxanRawDataset(object):
             return step, data
 
         except (IOError) as error:
-            print("Unable to open : ", error)
+            log.error("Unable to open : %s", error)
         except (struct.error) as error:
-            print("Not a valid binary file : ", error)
+            log.error("Not a valid binary file : %s", error)
 
 
 class RawDataset(object):
@@ -127,7 +122,7 @@ class RawDataset(object):
             data = np.fromfile(self.filename, dtype=dt)
             self.signal = data['samples'].ravel()
             self.step = float(data['step']) * 1e-6  # step in microseconds
-            # Skip the binary part and read the script (readfiles is faster)
+            # Skip the binary part and read the script (readlines is faster)
             with open(self.filename, mode="rb") as fir:
                 fir.read(4 + (4 * self.points) + 4)
                 self.text = fir.readlines()
@@ -172,7 +167,7 @@ class RawDataset(object):
                     pass
                 else:
                     with open(self.filename + "_sc.txt", mode="w", encoding='utf_8') as file:
-                        print("Script file creation...")
+                        log.info("Script file creation...")
                         for line in self.text:
                             # strip removes all whitespace characters
                             if line.strip():
@@ -183,9 +178,9 @@ class RawDataset(object):
                 self.scriptable = False
 
         except (IOError) as error:
-            print("Unable to open : ", error)
+            log.error("Unable to open : %s", error)
         except (struct.error) as error:
-            print("Not a valid binary file : ", error)
+            log.error("Not a valid binary file : %s", error)
 
     def __find_limits(self):
         """
@@ -206,7 +201,7 @@ class RawDataset(object):
     def get_science(self):
 
         if not self.dataReady:
-            print("Data NOT available, please read data first")
+            log.error("Data NOT available, please read data first")
 
         return self.signal, self.step
 
@@ -302,4 +297,4 @@ if __name__ == '__main__':
 #         plt.show()
 
 else:
-    print("\nImporting... ", __name__)
+    log.info("Importing... ", __name__)

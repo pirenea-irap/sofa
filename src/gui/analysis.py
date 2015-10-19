@@ -5,8 +5,7 @@
 #        Odile Coeur-Joly, Toulouse, France
 #
 """
-
-gui.analysis created on 20 févr. 2015
+This module manage the GUI of the analysis.
 """
 from PyQt5.QtWidgets import QDockWidget
 from PyQt5.QtCore import pyqtSignal

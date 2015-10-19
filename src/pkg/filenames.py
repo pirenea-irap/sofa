@@ -1,11 +1,15 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#
+#        Copyright (c) IRAP CNRS
+#        Odile Coeur-Joly, Toulouse, France
+#
 """
-Created on 25 nov. 2014
-@author: Odile
-
-pkg1.FilesAndDirs
+This module manages the PIRENEA filenames.
 """
 import os
+import logging
+log = logging.getLogger('root')
 
 
 class FilesAndDirs(object):
@@ -33,7 +37,7 @@ class FilesAndDirs(object):
         list_years = []
 
         if not os.path.isdir(dirname):
-            print("get_years - Not a directory: ", dirname, self.__class__)
+            log.error("Not a directory: %s", dirname)
         else:
             li = os.listdir(dirname)
             for y in li:
@@ -51,7 +55,7 @@ class FilesAndDirs(object):
         list_months = []
 
         if not os.path.isdir(dirname):
-            print("get_months - Not a directory: ", dirname)
+            log.error("Not a directory: %s", dirname)
         else:
             di = os.listdir(dirname)
             for d in di:
@@ -73,7 +77,7 @@ class FilesAndDirs(object):
         list_days = []
 
         if not os.path.isdir(dirname):
-            print("get_days - Not a directory: ", dirname)
+            log.error("Not a directory: %s", dirname)
         else:
             di = os.listdir(dirname)
             for d in di:
@@ -113,7 +117,7 @@ class FilesAndDirs(object):
         spectra = []
 
         if not os.path.isdir(dirname):
-            print("get_spectra - Not a directory: ", dirname)
+            log.error("Not a directory: %s", dirname)
         else:
             self.files = os.listdir(dirname)
             for f in self.files:
@@ -133,7 +137,7 @@ class FilesAndDirs(object):
         acquis = []
 
         if not os.path.isdir(dirname):
-            print("Not a directory: ", dirname)
+            log.error("Not a directory: %s", dirname)
         else:
             self.files = os.listdir(dirname)
             for f in self.files:
@@ -154,7 +158,7 @@ class FilesAndDirs(object):
         accums = []
 
         if not os.path.isdir(dirname):
-            print("Not a directory: ", dirname)
+            log.error("Not a directory: %s", dirname)
         else:
             self.files = os.listdir(dirname)
             for f in self.files:
@@ -175,7 +179,7 @@ class FilesAndDirs(object):
         spectrumName = ""
 
         if not os.path.isdir(dirname):
-            print("Not a directory: ", dirname)
+            log.error("Not a directory: %s", dirname)
         else:
             # create spectrum name
             spectrumName = dirname + os.sep + \
@@ -206,4 +210,4 @@ if __name__ == '__main__':
     print("name = ", specName)
 
 else:
-    print("\nImporting... ", __name__)
+    log.info("Importing... ", __name__)
