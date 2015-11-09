@@ -122,7 +122,7 @@ class MatplotlibWidget(Canvas):
 
     def plot_data(self, x, y, title, xlabel, ylabel):
         self.ax.plot(x, y)
-        self.ax.set_title(title)
+        self.ax.set_title(title, size=10)
         self.ax.set_xlabel(xlabel)
         self.ax.set_ylabel(ylabel)
         self.draw()
@@ -130,7 +130,7 @@ class MatplotlibWidget(Canvas):
     def plot_mass(self, x, y, title, xlabel, ylabel, hold=False):
         self.ax.hold(hold)
         self.ax.plot(x, y)
-        self.ax.set_title(title)
+        self.ax.set_title(title, size=10)
         self.ax.set_xlabel(xlabel)
         self.ax.set_ylabel(ylabel)
         self.draw()
@@ -147,7 +147,7 @@ class MatplotlibWidget(Canvas):
 #         self.ax.plot(x, y)
         self.ax.plot(x, y, 'b')
         self.ax.plot(x[ind], y[ind], '+', mfc=None, mec='r', mew=2, ms=8)
-        self.ax.set_title(title)
+        self.ax.set_title(title, size=10)
         self.ax.set_xlabel(xlabel)
         self.ax.set_ylabel(ylabel)
         [x1, x2, y1, y2] = self.ax.axis()

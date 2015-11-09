@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'analysis_qt.ui'
+# Form implementation generated from reading ui file
+'D:\S.O.F.T.S\PIRENEA\PYTHON\sofa\src\gui\analysis_qt.ui'
 #
 # Created by: PyQt5 UI code generator 5.5
 #

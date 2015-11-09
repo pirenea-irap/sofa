@@ -5,20 +5,17 @@
 # Created by: PyQt5 UI code generator 5.5
 #
 # WARNING! All changes made in this file will be lost!
-from PyQt5 import QtCore, QtWidgets
 
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_TabWidget_Plots(object):
-
     def setupUi(self, TabWidget_Plots):
         TabWidget_Plots.setObjectName("TabWidget_Plots")
         TabWidget_Plots.resize(1400, 900)
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(
-            TabWidget_Plots.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(TabWidget_Plots.sizePolicy().hasHeightForWidth())
         TabWidget_Plots.setSizePolicy(sizePolicy)
         self.tab_Signal = QtWidgets.QWidget()
         self.tab_Signal.setObjectName("tab_Signal")
@@ -47,13 +44,9 @@ class Ui_TabWidget_Plots(object):
 
     def retranslateUi(self, TabWidget_Plots):
         _translate = QtCore.QCoreApplication.translate
-        TabWidget_Plots.setWindowTitle(
-            _translate("TabWidget_Plots", "TabWidget"))
-        TabWidget_Plots.setTabText(TabWidget_Plots.indexOf(
-            self.tab_Signal), _translate("TabWidget_Plots", "Signal"))
-        TabWidget_Plots.setTabText(TabWidget_Plots.indexOf(
-            self.tab_Spectrum), _translate("TabWidget_Plots", "Spectrum"))
-        TabWidget_Plots.setTabText(
-            TabWidget_Plots.indexOf(self.tab_Mass), _translate("TabWidget_Plots", "Mass"))
-        TabWidget_Plots.setTabText(
-            TabWidget_Plots.indexOf(self.tab_Peaks), _translate("TabWidget_Plots", "Peaks"))
+        TabWidget_Plots.setWindowTitle(_translate("TabWidget_Plots", "TabWidget"))
+        TabWidget_Plots.setTabText(TabWidget_Plots.indexOf(self.tab_Signal), _translate("TabWidget_Plots", "Signal"))
+        TabWidget_Plots.setTabText(TabWidget_Plots.indexOf(self.tab_Spectrum), _translate("TabWidget_Plots", "Spectrum"))
+        TabWidget_Plots.setTabText(TabWidget_Plots.indexOf(self.tab_Mass), _translate("TabWidget_Plots", "Mass"))
+        TabWidget_Plots.setTabText(TabWidget_Plots.indexOf(self.tab_Peaks), _translate("TabWidget_Plots", "Peaks"))
+

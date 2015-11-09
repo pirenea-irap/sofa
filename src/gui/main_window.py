@@ -82,7 +82,7 @@ if __name__ == '__main__':
     if translatorQT.load("qt_" + "fr", path):
         app.installTranslator(translatorQT)
 
-    log.info("Starting...""")
+    log.info("Starting...\n")
     win = MainWindowGUI()
     win.add_data_selector()
     win.add_analysis()
@@ -96,4 +96,4 @@ if __name__ == '__main__':
     sys.exit(app.exec_())
 
 else:
-    log.info("\nImporting... ", __name__)
+    log.info("\nImporting... %s", __name__)
