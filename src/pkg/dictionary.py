@@ -121,4 +121,4 @@ if __name__ == '__main__':
     print("channel PAS BIEN", ch["PAS BIEN"])
 
 else:
-    print("\nImporting... ", __name__)
+    print("\nImporting... %s", __name__)
