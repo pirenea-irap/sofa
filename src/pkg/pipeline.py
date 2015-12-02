@@ -156,4 +156,4 @@ if __name__ == '__main__':
     plt.show()
 
 else:
-    print("\nImporting... ", __name__)
+    print("\nImporting... %s", __name__)

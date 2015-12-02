@@ -284,4 +284,4 @@ if __name__ == '__main__':
     plt.show()
 
 else:
-    log.info("Importing... ", __name__)
+    log.info("Importing... %s", __name__)
