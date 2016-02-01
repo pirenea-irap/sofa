@@ -1,24 +1,20 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
-#        Copyright (c) IRAP CNRS
-#        Odile Coeur-Joly, Toulouse, France
-#
 """
-This module manages the GUI of the masstab viewer.
+This module manages the display of the data selector.
+
+Created on 02 dec. 2014
+@author: Odile
+
 """
 import os
 
-from PyQt5.QtWidgets import QDockWidget
-from PyQt5.QtWidgets import QFileDialog
+from PyQt5 import QtWidgets
 
 from gui.masstab_viewer_qt import Ui_DockWidget_MassTabViewer
 from pkg.peaks import Peaks
-import logging
-log = logging.getLogger('root')
 
 
-class MassTabViewerGUI(QDockWidget):
+class MassTabViewerGUI(QtWidgets.QDockWidget):
 
     """
     classdocs
@@ -50,11 +46,9 @@ class MassTabViewerGUI(QDockWidget):
         self.ui.doubleSpinBox_Accuracy.valueChanged.connect(self.acc_event)
 
     def acc_event(self):
-        log.debug("event from %s", self.sender())
         self.acc = float(self.ui.doubleSpinBox_Accuracy.value())
 
     def update_columns(self, mass_list):
-        log.debug("event from %s", self.sender())
         #         self.__clear_text()
         self.mass_list = sorted(mass_list)
         text = "\n" + " " * 21
@@ -64,19 +58,16 @@ class MassTabViewerGUI(QDockWidget):
         self.ui.plainTextEdit_Viewer.appendPlainText(text)
 
     def update_filename(self, filename):
-        log.debug("event from %s", self.sender())
         self.ui.pushButton_Automatic.setEnabled(True)
         self.ui.pushButton_Write.setEnabled(True)
         self.short_name = os.path.basename(filename)
         self.dir_name = os.path.dirname(filename)
 
     def clear_text(self):
-        log.debug("event from %s", self.sender())
         self.spectrum_name = ""
         self.ui.plainTextEdit_Viewer.clear()
 
     def automatic_fill(self):
-        log.debug("event from %s", self.sender())
         if len(self.mass_list) == 0:
             return
         #         if self.ana.pip.signal is None:
@@ -92,9 +83,8 @@ class MassTabViewerGUI(QDockWidget):
         self.ui.plainTextEdit_Viewer.appendPlainText(text)
 
     def write_file(self):
-        log.debug("event from %s", self.sender())
         #         if self.dir_name:
-        filename = QFileDialog.getSaveFileName(
+        filename = QtWidgets.QFileDialog.getSaveFileName(
             self, 'MassTab File', self.dir_name, filter='masstab*.txt')
         if filename:
             with open(filename, mode="w", encoding='utf_8') as file:
@@ -104,4 +94,4 @@ class MassTabViewerGUI(QDockWidget):
 if __name__ == '__main__':
     pass
 else:
-    log.info("Importing... %s", __name__)
+    print("\nImporting... ", __name__)

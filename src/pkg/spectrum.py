@@ -1,17 +1,11 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
-#        Copyright (c) IRAP CNRS
-#        Odile Coeur-Joly, Toulouse, France
-#
 """
-Process mass and frequency spectra on PIRENEA data.
+Created on 22 mai 2014.
+@author: Odile
 """
 import os
 from scipy import constants
 import numpy as np
-import logging
-log = logging.getLogger("root")
 
 
 class FrequencySpectrum(object):
@@ -255,4 +249,4 @@ if __name__ == '__main__':
     plt.show()
 
 else:
-    log.info("Importing... %s", __name__)
+    print("\nImporting... ", __name__)

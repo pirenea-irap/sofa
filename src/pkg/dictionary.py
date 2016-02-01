@@ -1,14 +1,10 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
-#        Copyright (c) IRAP CNRS
-#        Odile Coeur-Joly, Toulouse, France
-#
 """
-This module manages the dictionary of XML parameters.
+Created on 18 dec. 2014
+@author: Odile
+
+pkg1.Dictionary
 """
-import logging
-log = logging.getLogger("root")
 
 
 class Dictionary(object):
@@ -123,4 +119,4 @@ if __name__ == '__main__':
     print("channel PAS BIEN", ch["PAS BIEN"])
 
 else:
-    log.info("Importing... %s", __name__)
+    print("\nImporting... ", __name__)

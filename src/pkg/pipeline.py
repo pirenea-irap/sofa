@@ -1,11 +1,11 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
-#        Copyright (c) IRAP CNRS
-#        Odile Coeur-Joly, Toulouse, France
-#
 """
-Process PIRENEA data.
+File: D:/S.O.F.T.S/PIRENEA/PYTHON/ProjPyDev1/src/pkg1/pipeline.py
+
+Created on: 24 févr. 2015
+@author: Odile
+
+pkg1.pipeline.
 """
 
 import numpy as np
@@ -14,8 +14,6 @@ from pkg.peaks import Peaks
 from pkg.script import Script
 from pkg.spectrum import FrequencySpectrum
 from pkg.spectrum import MassSpectrum
-import logging
-log = logging.getLogger("root")
 
 
 class Pipeline(object):
@@ -158,4 +156,4 @@ if __name__ == '__main__':
     plt.show()
 
 else:
-    log.info("Importing... %s", __name__)
+    print("\nImporting... ", __name__)
