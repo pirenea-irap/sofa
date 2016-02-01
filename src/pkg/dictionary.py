@@ -7,6 +7,8 @@
 """
 This module manages the dictionary of XML parameters.
 """
+import logging
+log = logging.getLogger("root")
 
 
 class Dictionary(object):
@@ -121,4 +123,4 @@ if __name__ == '__main__':
     print("channel PAS BIEN", ch["PAS BIEN"])
 
 else:
-    print("\nImporting... ", __name__)
+    log.info("Importing... %s", __name__)

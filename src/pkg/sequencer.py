@@ -7,6 +7,8 @@
 """"
 Extract 32-bits words and delays from a sequence of pulses.
 """
+import logging
+log = logging.getLogger("root")
 
 
 class Sequence(object):
@@ -116,4 +118,4 @@ if __name__ == '__main__':
     print("\ndelays =", seq.delays)
 
 else:
-    print("\nImporting... ", __name__)
+    log.info("Importing... %s", __name__)

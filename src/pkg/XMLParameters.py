@@ -12,6 +12,8 @@ import os
 
 from pkg.dictionary import Dictionary
 import xml.etree.cElementTree as ET
+import logging
+log = logging.getLogger("root")
 
 
 class XMLFile(object):
@@ -116,4 +118,4 @@ if __name__ == '__main__':
 
 
 else:
-    print("\nImporting... ", __name__)
+    log.info("Importing... %s", __name__)

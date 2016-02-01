@@ -210,4 +210,4 @@ if __name__ == '__main__':
     print("name = ", specName)
 
 else:
-    log.info("Importing... ", __name__)
+    log.info("Importing... %s", __name__)
