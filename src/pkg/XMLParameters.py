@@ -1,7 +1,11 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#
+#        Copyright (c) IRAP CNRS
+#        Odile Coeur-Joly, Toulouse, France
+#
 """
-Created on 12 nov. 2014
-@author: Odile
+Process XML files for PIRENEA.
 """
 from datetime import datetime
 import os
