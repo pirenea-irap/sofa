@@ -1,18 +1,22 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#
+#        Copyright (c) IRAP CNRS
+#        Odile Coeur-Joly, Toulouse, France
+#
 """
-Created on 6 janv. 2015
-@author: Odile
-
-gui.sequence
+This module manages the GUI of the sequence viewer.
 """
 
-from PyQt5 import QtGui
-from PyQt5 import QtWidgets
+from PyQt5.QtGui import QStandardItemModel
+from PyQt5.QtWidgets import QDockWidget
 
 from gui.sequence_qt import Ui_DockWidget_Sequence
+import logging
+log = logging.getLogger('root')
 
 
-class SequenceGUI(QtWidgets.QDockWidget):
+class SequenceGUI(QDockWidget):
 
     """
     classdocs
@@ -24,11 +28,11 @@ class SequenceGUI(QtWidgets.QDockWidget):
         self.ui.setupUi(self)
 
     def setup(self):
-        self.model = QtGui.QStandardItemModel(2, 5)
+        self.model = QStandardItemModel(2, 5)
         self.ui.tableView_Sequence.setModel(self.model)
 
 
 if __name__ == '__main__':
     pass
 else:
-    print("\nImporting... ", __name__)
+    log.info("Importing... %s", __name__)

@@ -1,15 +1,20 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
+#
+#        Copyright (c) IRAP CNRS
+#        Odile Coeur-Joly, Toulouse, France
+#
 """
-Created on 11 dec. 2014
-@author: Odile
-$Source$
+This module manages the GUI of the parameters viewer.
 """
-from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QDockWidget
 
 from gui.parameters_qt import Ui_DockWidget_Parameters
+import logging
+log = logging.getLogger('root')
 
 
-class ParametersGUI(QtWidgets.QDockWidget):
+class ParametersGUI(QDockWidget):
 
     """
     classdocs
@@ -31,7 +36,7 @@ class ParametersGUI(QtWidgets.QDockWidget):
             self.toggle_ejection)
 
     def fill_params(self, filename, pipeline):
-        #         print("sender fill_params ", self.sender())
+        log.debug("event from %s", self.sender())
         short = str(filename).split(sep="\\")
         self.ui.lineEdit_File.setText(short[-1])
 
@@ -48,52 +53,15 @@ class ParametersGUI(QtWidgets.QDockWidget):
         else:
             self.disable_parameters_box()
 
-    def enable_parameters_box(self):
-        self.ui.groupBox_Detect.setVisible(True)
-        self.ui.groupBox_Eject.setVisible(True)
-        self.ui.groupBox_Excit.setVisible(True)
-
-    def disable_parameters_box(self):
-        self.ui.groupBox_Detect.setVisible(False)
-        self.ui.groupBox_Eject.setVisible(False)
-        self.ui.groupBox_Excit.setVisible(False)
-
-    def update_excitation(self):
-        # Update excitation
-        self.ui.lineEdit_ExcitType.clear()
-        self.ui.lineEdit_ExcitDuration.clear()
-        self.ui.lineEdit_ExcitIntensity.clear()
-        self.ui.lineEdit_ExcitStart.clear()
-        self.ui.lineEdit_ExcitEnd.clear()
-        if self.excitation:
-            if len(self.excitBuffer) > 0:
-                wave = self.excitBuffer[0][2]
-                self.ui.lineEdit_ExcitType.setText(wave)
-                self.ui.lineEdit_ExcitDuration.setText(
-                    "{:.1f}".format(float(self.excitBuffer[0][3])))
-                self.ui.lineEdit_ExcitIntensity.setText(
-                    "{:.1f}".format(float(self.excitBuffer[0][4])))
-                self.ui.lineEdit_ExcitStart.setText(
-                    "{:.1f}".format(float(self.excitBuffer[0][5])))
-                self.ui.lineEdit_ExcitEnd.setText(
-                    "{:.1f}".format(float(self.excitBuffer[0][6])))
-            else:
-                self.ui.lineEdit_ExcitType.setText(self.excitation)
-
-    def update_ejections(self):
-        #         print("sender update_ejections", self.sender())
-        self.ui.comboBox_EjectName.clear()
-        if self.ejection:
-            self.ui.comboBox_EjectName.addItems(self.ejection)
-
     def toggle_ejection(self):
-        # test if items exist
+        log.debug("event from %s", self.sender())
         self.ui.lineEdit_EjectType.clear()
         self.ui.lineEdit_EjectDuration.clear()
         self.ui.comboBox_EjectIntensity.clear()
         self.ui.comboBox_EjectStart.clear()
         self.ui.comboBox_EjectEnd.clear()
         index = self.ui.comboBox_EjectName.currentIndex()
+        # test if items exist
         if self.ejection and index >= 0:
             intensity = []
             start = []
@@ -120,7 +88,48 @@ class ParametersGUI(QtWidgets.QDockWidget):
                 self.ui.comboBox_EjectStart.addItems(start)
                 self.ui.comboBox_EjectEnd.addItems(end)
 
+    def enable_parameters_box(self):
+        self.ui.groupBox_Detect.setVisible(True)
+        self.ui.groupBox_Eject.setVisible(True)
+        self.ui.groupBox_Excit.setVisible(True)
+
+    def disable_parameters_box(self):
+        self.ui.groupBox_Detect.setVisible(False)
+        self.ui.groupBox_Eject.setVisible(False)
+        self.ui.groupBox_Excit.setVisible(False)
+
+    def update_excitation(self):
+        self.ui.lineEdit_ExcitType.clear()
+        self.ui.lineEdit_ExcitDuration.clear()
+        self.ui.lineEdit_ExcitIntensity.clear()
+        self.ui.lineEdit_ExcitStart.clear()
+        self.ui.lineEdit_ExcitEnd.clear()
+        if self.excitation:
+            if len(self.excitBuffer[0]) >= 7:
+                wave = self.excitBuffer[0][2]
+                self.ui.lineEdit_ExcitType.setText(wave)
+                self.ui.lineEdit_ExcitDuration.setText(
+                    "{:.1f}".format(float(self.excitBuffer[0][3])))
+                self.ui.lineEdit_ExcitIntensity.setText(
+                    "{:.1f}".format(float(self.excitBuffer[0][4])))
+                self.ui.lineEdit_ExcitStart.setText(
+                    "{:.1f}".format(float(self.excitBuffer[0][5])))
+                self.ui.lineEdit_ExcitEnd.setText(
+                    "{:.1f}".format(float(self.excitBuffer[0][6])))
+            else:
+                self.ui.lineEdit_ExcitType.setText(self.excitation)
+
+    def update_ejections(self):
+        self.ui.comboBox_EjectName.clear()
+        if self.ejection:
+            self.ui.comboBox_EjectName.addItems(self.ejection)
+
     def update_detection(self):
         self.ui.comboBox_DetectName.clear()
         if self.detection:
             self.ui.comboBox_DetectName.addItem(self.detection)
+
+if __name__ == '__main__':
+    pass
+else:
+    log.info("Importing... %s", __name__)
