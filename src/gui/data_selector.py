@@ -1,23 +1,20 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
-#        Copyright (c) IRAP CNRS
-#        Odile Coeur-Joly, Toulouse, France
-#
 """
-This module manages the GUI of the data selector.
+This module manages the display of the data selector.
+
+Created on 02 dec. 2014
+@author: Odile
+$Source$
+
 """
-from PyQt5.QtWidgets import QDockWidget
+from PyQt5 import QtWidgets
 from PyQt5.QtCore import pyqtSignal
 
 from gui.data_selector_qt import Ui_DockWidget_DataSelector
 from pkg.filenames import FilesAndDirs
 
-import logging
-log = logging.getLogger('root')
 
-
-class DataSelectorGUI(QDockWidget):
+class DataSelectorGUI(QtWidgets.QDockWidget):
 
     analysisRaisedSignal = pyqtSignal(str)
     masstabRaisedSignal = pyqtSignal(str)
@@ -44,16 +41,21 @@ class DataSelectorGUI(QDockWidget):
 #         self.ui.checkBox_AutoUpdate.stateChanged.connect(self.toggle_update)
         self.ui.pushButton_StartAnalysis.clicked.connect(self.emit_signals)
 
+    """ Fill input widgets with default values """
+
     def fill_year(self):
-        log.debug("event from %s", self.sender())
+        # Year
+        #         print("sender fill_year", self.sender())
         self.ui.comboBox_Year.clear()
         self.folder = self.ui.lineEdit_Folder.text()
         li = self.filesAndDirs.get_years(self.folder)
         if li:
             self.ui.comboBox_Year.addItems(li)
 
+    """ Fill input widgets with default values """
+
     def fill_month(self):
-        log.debug("event from %s", self.sender())
+        #         print("sender fill_month", self.sender())
         self.ui.comboBox_Month.clear()
         self.year = self.ui.comboBox_Year.currentText()
         if self.year:
@@ -61,10 +63,10 @@ class DataSelectorGUI(QDockWidget):
             if months:
                 self.ui.comboBox_Month.addItems(months)
 
-    """Fill input widgets with default values """
+    """ Fill input widgets with default values """
 
     def fill_day(self):
-        log.debug("event from %s", self.sender())
+        #         print("sender fill_day", self.sender())
         self.ui.comboBox_Day.clear()
         self.ui.lineEdit_Directory.clear()
         self.month = self.ui.comboBox_Month.currentText()
@@ -73,10 +75,10 @@ class DataSelectorGUI(QDockWidget):
             if days:
                 self.ui.comboBox_Day.addItems(days)
 
-    """Update list of spectra """
+    """ update list of spectra """
 
     def fill_spectra(self):
-        log.debug("event from %s", self.sender())
+        #         print("sender fill_spectra", self.sender())
         self.ui.comboBox_Number.clear()
         self.day = self.ui.comboBox_Day.currentText()
         if self.day:
@@ -87,10 +89,10 @@ class DataSelectorGUI(QDockWidget):
                 spectra = self.filesAndDirs.get_spectra(self.directory)
                 self.ui.comboBox_Number.addItems(spectra)
 
-    """Update list of acquis """
+    """ update list of acquis """
 
     def fill_acquis(self):
-        log.debug("event from %s", self.sender())
+        #         print("sender fill_acquis", self.sender())
         self.ui.comboBox_Acquis.clear()
         self.specNum = self.ui.comboBox_Number.currentText()
         if self.specNum:
@@ -98,10 +100,10 @@ class DataSelectorGUI(QDockWidget):
             if acquis:
                 self.ui.comboBox_Acquis.addItems(acquis)
 
-    """Update list of spectra """
+    """ update list of spectra """
 
     def fill_accums(self):
-        log.debug("event from %s", self.sender())
+        #         print("sender fill_accums", self.sender())
         self.ui.comboBox_Accum.clear()
         self.acquis = self.ui.comboBox_Acquis.currentText()
         if self.acquis:
@@ -111,14 +113,14 @@ class DataSelectorGUI(QDockWidget):
                 self.ui.comboBox_Accum.addItems(accums)
 
 #     def toggle_update(self):
-#         log.debug("event from %s", self.sender())
+#         print("sender toggle update", self.sender())
 #         if self.ui.checkBox_AutoUpdate.isChecked():
 #             self.ui.pushButton_UpdatePlot.setDisabled(True)
 #         else:
 #             self.ui.pushButton_UpdatePlot.setEnabled(True)
 
     def emit_signals(self):
-        log.debug("event from %s", self.sender())
+        #         print("sender emit_signals", self.sender())
         self.accum = self.ui.comboBox_Accum.currentText()
         if self.accum:
             spectrumName = self.filesAndDirs.get_spectrumName(self.directory,
@@ -127,9 +129,9 @@ class DataSelectorGUI(QDockWidget):
             self.analysisRaisedSignal.emit(spectrumName)
             self.masstabRaisedSignal.emit(spectrumName)
         else:
-            log.error("No data, accumulation not selected")
+            print("ERROR in: ", __name__)
 
 if __name__ == '__main__':
     pass
 else:
-    log.info("Importing... %s", __name__)
+    print("\nImporting... ", __name__)

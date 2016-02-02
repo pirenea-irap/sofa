@@ -1,19 +1,13 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
-#        Copyright (c) IRAP CNRS
-#        Odile Coeur-Joly, Toulouse, France
-#
 """
-Process XML files for PIRENEA.
+Created on 12 nov. 2014
+@author: Odile
 """
 from datetime import datetime
 import os
 
 from pkg.dictionary import Dictionary
 import xml.etree.cElementTree as ET
-import logging
-log = logging.getLogger("root")
 
 
 class XMLFile(object):
@@ -118,4 +112,4 @@ if __name__ == '__main__':
 
 
 else:
-    log.info("Importing... %s", __name__)
+    print("\nImporting... ", __name__)
