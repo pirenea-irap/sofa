@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file
-'D:\S.O.F.T.S\PIRENEA\PYTHON\sofa\src\gui\analysis_qt.ui'
+# Form implementation generated from reading ui file 'D:\S.O.F.T.S\PIRENEA\PYTHON\sofa\src\gui\analysis_qt.ui'
 #
 # Created by: PyQt5 UI code generator 5.5
 #
@@ -188,8 +187,7 @@ class Ui_DockWidget_Analysis(object):
         self.doubleSpinBox_PlotMassX1.setMaximum(1000.0)
         self.doubleSpinBox_PlotMassX1.setProperty("value", 10.0)
         self.doubleSpinBox_PlotMassX1.setObjectName("doubleSpinBox_PlotMassX1")
-        self.doubleSpinBox_PlotMassX2 = QtWidgets.QDoubleSpinBox(
-            self.groupBox_Mass)
+        self.doubleSpinBox_PlotMassX2 = QtWidgets.QDoubleSpinBox(self.groupBox_Mass)
         self.doubleSpinBox_PlotMassX2.setGeometry(
             QtCore.QRect(180, 120, 60, 20))
         self.doubleSpinBox_PlotMassX2.setLocale(

@@ -1,22 +1,16 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
-#        Copyright (c) IRAP CNRS
-#        Odile Coeur-Joly, Toulouse, France
-#
 """
-This module manages the GUI of the masstab selector.
+This module manages the display of the data selector.
+Created on 02 dec. 2014
+@author: Odile
 """
-from PyQt5.QtWidgets import QDockWidget
-from PyQt5.QtGui import QStandardItem, QStandardItemModel
+from PyQt5 import QtGui, QtWidgets
 from PyQt5.QtCore import pyqtSignal
 
 from gui.masstab_selector_qt import Ui_DockWidget_MassTabSelector
-import logging
-log = logging.getLogger('root')
 
 
-class MassTabSelectorGUI(QDockWidget):
+class MassTabSelectorGUI(QtWidgets.QDockWidget):
 
     """
     classdocs
@@ -34,7 +28,7 @@ class MassTabSelectorGUI(QDockWidget):
         self.__connect_events()
 
     def __connect_events(self):
-        self.model = QStandardItemModel()
+        self.model = QtGui.QStandardItemModel()
         self.mass_list = []
         for i in range(20):
             mass = 290 + i
@@ -43,7 +37,7 @@ class MassTabSelectorGUI(QDockWidget):
             mass = 599 + i
             self.mass_list.append(str(mass))
         for mass in self.mass_list:
-            item = QStandardItem(mass)
+            item = QtGui.QStandardItem(mass)
             item.setCheckable(True)
             item.setEditable(True)
             self.model.appendRow(item)
@@ -55,7 +49,7 @@ class MassTabSelectorGUI(QDockWidget):
         self.ui.pushButton_ChangeList.clicked.connect(self.emit_list_signal)
 
     def change_list(self):
-        log.debug("event from %s", self.sender())
+        #         print("event change_list", self.sender())
         self.oneIsChecked = False
         self.mass_list = []
         count = self.model.rowCount()
@@ -67,7 +61,7 @@ class MassTabSelectorGUI(QDockWidget):
                 self.oneIsChecked = True
 
     def emit_list_signal(self):
-        log.debug("event from %s", self.sender())
+        #         print("event emit_list_signal", self.sender())
         self.change_list()
         if self.oneIsChecked:
             self.masstabViewRaisedSignal.emit(self.mass_list)
@@ -76,4 +70,4 @@ class MassTabSelectorGUI(QDockWidget):
 if __name__ == '__main__':
     pass
 else:
-    log.info("Importing... %s", __name__)
+    print("\nImporting... ", __name__)

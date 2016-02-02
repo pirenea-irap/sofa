@@ -1,27 +1,21 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
-#        Copyright (c) IRAP CNRS
-#        Odile Coeur-Joly, Toulouse, France
-#
 """
-this module manages the main GUI.
+This module manages the display of the data selector.
+Created on 02 dec. 2014
+@author: Odile
 """
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import QMainWindow, QApplication
+from PyQt5 import QtWidgets
 
-from pkg.logs import Logs
-log = Logs('root').setup_logger("info")
-# import MUST be after declaration of log
 from gui.main_window_qt import Ui_MainWindow
 
 
-class MainWindowGUI(QMainWindow):
+class MainWindowGUI(QtWidgets.QMainWindow):
 
     """ constructor """
 
     def __init__(self, parent=None):
-        super().__init__(parent)
+        super(MainWindowGUI, self).__init__(parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
@@ -46,6 +40,7 @@ class MainWindowGUI(QMainWindow):
         self.seq.setup()
 
     def add_plots(self):
+        """ Signal tab """
         self.plo = self.ui.tabWidget_Plots
         self.plo.setup(self.ana)
 
@@ -64,7 +59,7 @@ if __name__ == '__main__':
 
     import sys
 
-    app = QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
 
     """ remove translator ==> switch to english for qt"""
     """ both qt messages and application messages are written in english """
@@ -82,7 +77,7 @@ if __name__ == '__main__':
     if translatorQT.load("qt_" + "fr", path):
         app.installTranslator(translatorQT)
 
-    log.info("Starting...\n")
+    """ START here..."""
     win = MainWindowGUI()
     win.add_data_selector()
     win.add_analysis()
@@ -96,4 +91,4 @@ if __name__ == '__main__':
     sys.exit(app.exec_())
 
 else:
-    log.info("\nImporting... %s", __name__)
+    print("\nImporting... ", __name__)
