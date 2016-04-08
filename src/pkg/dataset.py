@@ -125,41 +125,7 @@ class RawDataset(object):
             # Skip the binary part and read the script (readlines is faster)
             with open(self.filename, mode="rb") as fir:
                 fir.read(4 + (4 * self.points) + 4)
-#                 self.text = fir.readlines()
-
-#             with open(self.filename, mode="rb") as fir:
-# Read the first 4 bytes and convert to Integer to get the
-# number of points """
-#                 t = time.time()
-#
-#                 contents = fir.read(4)
-#                 self.points = struct.unpack('>i', contents)[0]
-#
-# Read all data points as floats """
-#                 contents = fir.read(4 * self.points)
-#
-# Fill data with empty values, faster than append """
-#                 t = time.time()
-#                 signal = self.points * [0.0]
-#                 t1 = time.time() - t
-#                 t = time.time()
-#                 for i in range(self.points):
-#                     signal[i] = struct.unpack(
-#                         '>f', contents[i * 4:(i + 1) * 4])[0]
-# self.signal = np.asarray(signal)
-#                 t2 = time.time() - t
-#                 self.signal = signal
-# Read stepTime as float in seconds """
-#                 contents = fir.read(4)
-#                 self.step = struct.unpack('>f', contents)[0] / 1000000.0
-#
-#                 """ Read the script in text format and save it """
-# Use readlines and NOT readline otherwise first line is
-# missing """
-#                 t = time.time()
-#                 self.text = fir.readlines()
-#                 t3 = time.time() - t
-#             print("time readfile", t1, t2, t3)
+                self.text = fir.readlines()
 
             if len(self.text) > 0:
                 self.scriptable = True
