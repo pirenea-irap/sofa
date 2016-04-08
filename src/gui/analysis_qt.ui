@@ -795,12 +795,25 @@
      <string>Auto Update</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_SaveToAscii">
+    <property name="geometry">
+     <rect>
+      <x>820</x>
+      <y>10</y>
+      <width>141</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>SAVE TO ASCII FILE...</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup_Hann"/>
   <buttongroup name="buttonGroup_Zero"/>
+  <buttongroup name="buttonGroup_Hann"/>
  </buttongroups>
 </ui>

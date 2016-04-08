@@ -7,8 +7,11 @@
 """
 This module manage the GUI of the analysis.
 """
+import os
+
 from PyQt5.QtWidgets import QDockWidget
 from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtWidgets import QFileDialog
 
 from gui.analysis_qt import Ui_DockWidget_Analysis
 from pkg.pipeline import Pipeline
@@ -45,6 +48,7 @@ class AnalysisGUI(QDockWidget):
 
     def __connect_events(self):
         self.ds.analysisRaisedSignal.connect(self.new_analysis)
+        self.ui.pushButton_SaveToAscii.clicked.connect(self.save_to_ascii_file)
         self.ui.pushButton_UpdatePlots.clicked.connect(self.emit_plot_signals)
         # changes in signal GroupBox
         self.ui.spinBox_StartSignal.valueChanged.connect(
@@ -111,22 +115,24 @@ class AnalysisGUI(QDockWidget):
         self.ui.doubleSpinBox_EndMass.setValue(310.0)
         # Plots
         self.ui.checkBox_AutoUpdate.setChecked(False)
+        self.filename = ""
 
     def new_analysis(self, filename):
         log.info("analysis of %s", filename)
-        shortname = str(filename).split(sep="\\")
+        self.filename = filename
+        shortname = str(self.filename).split(sep="\\")
         self.shortname = shortname[-1]
         self.ui.lineEdit_File.setText(self.shortname)
         self.ui.pushButton_UpdatePlots.setEnabled(True)
         self.ui.checkBox_AutoUpdate.setEnabled(True)
 
         log.info("PIPELINE started...")
-        self.pip = Pipeline(filename)
+        self.pip = Pipeline(self.filename)
 
         # Update parameters box
-        self.parametersRaisedSignal.emit(filename, self.pip)
+        self.parametersRaisedSignal.emit(self.filename, self.pip)
         # Update masstab_viewer box
-        self.masstabRaisedSignal.emit(filename, self.pip)
+        self.masstabRaisedSignal.emit(self.filename, self.pip)
 
         self.ui.doubleSpinBox_Step.setValue(self.pip.step * 1e6)
         self.ui.spinBox_Points.setValue(self.pip.points)
@@ -177,6 +183,22 @@ class AnalysisGUI(QDockWidget):
             self.shortname, y, x, self.pip.ind,
             float(self.mph), int(self.mpd), float(self.peaks_x1),
             float(self.peaks_x2))
+
+    def save_to_ascii_file(self):
+        log.debug("event from %s", self.sender())
+        if len(self.filename) > 0:
+            x = self.pip.mass
+            mask = [(x >= self.peaks_x1) & (x <= self.peaks_x2)]
+            x = self.pip.mass[mask][::-1]
+            y = self.pip.spectrum[mask][::-1]
+            try:
+                ascii_name = self.filename + "_sp.txt"
+                log.info("Written file %s...", ascii_name)
+                with open(ascii_name, mode='w', encoding='utf_8') as file:
+                    for i in range(len(x)):
+                        file.write('{0:10.4f} {1:f}\n'.format(x[i], y[i]))
+            except (IOError) as error:
+                log.error("Unable to write into: %s", error)
 
 if __name__ == '__main__':
     pass

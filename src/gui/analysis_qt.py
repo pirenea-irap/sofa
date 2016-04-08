@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file
-'D:\S.O.F.T.S\PIRENEA\PYTHON\sofa\src\gui\analysis_qt.ui'
+# Form implementation generated from reading ui file 'D:\S.O.F.T.S\PIRENEA\PYTHON\sofa\src\gui\analysis_qt.ui'
 #
 # Created by: PyQt5 UI code generator 5.5
 #
@@ -9,9 +8,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
 class Ui_DockWidget_Analysis(object):
-
     def setupUi(self, DockWidget_Analysis):
         DockWidget_Analysis.setObjectName("DockWidget_Analysis")
         DockWidget_Analysis.resize(1050, 200)
@@ -42,57 +39,44 @@ class Ui_DockWidget_Analysis(object):
         self.label_Points.setObjectName("label_Points")
         self.spinBox_StartSignal = QtWidgets.QSpinBox(self.groupBox_Signal)
         self.spinBox_StartSignal.setGeometry(QtCore.QRect(160, 60, 60, 20))
-        self.spinBox_StartSignal.setLocale(
-            QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
-        self.spinBox_StartSignal.setButtonSymbols(
-            QtWidgets.QAbstractSpinBox.NoButtons)
+        self.spinBox_StartSignal.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
+        self.spinBox_StartSignal.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.spinBox_StartSignal.setMaximum(10000000)
         self.spinBox_StartSignal.setProperty("value", 0)
         self.spinBox_StartSignal.setObjectName("spinBox_StartSignal")
         self.spinBox_DefEndSignal = QtWidgets.QSpinBox(self.groupBox_Signal)
         self.spinBox_DefEndSignal.setEnabled(False)
         self.spinBox_DefEndSignal.setGeometry(QtCore.QRect(240, 30, 60, 20))
-        self.spinBox_DefEndSignal.setLocale(
-            QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
-        self.spinBox_DefEndSignal.setButtonSymbols(
-            QtWidgets.QAbstractSpinBox.NoButtons)
+        self.spinBox_DefEndSignal.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
+        self.spinBox_DefEndSignal.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.spinBox_DefEndSignal.setMaximum(10000000)
         self.spinBox_DefEndSignal.setObjectName("spinBox_DefEndSignal")
         self.spinBox_EndSignal = QtWidgets.QSpinBox(self.groupBox_Signal)
         self.spinBox_EndSignal.setGeometry(QtCore.QRect(240, 60, 60, 20))
-        self.spinBox_EndSignal.setLocale(
-            QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
-        self.spinBox_EndSignal.setButtonSymbols(
-            QtWidgets.QAbstractSpinBox.NoButtons)
+        self.spinBox_EndSignal.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
+        self.spinBox_EndSignal.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.spinBox_EndSignal.setMaximum(10000000)
         self.spinBox_EndSignal.setObjectName("spinBox_EndSignal")
         self.spinBox_DefStartSignal = QtWidgets.QSpinBox(self.groupBox_Signal)
         self.spinBox_DefStartSignal.setEnabled(False)
         self.spinBox_DefStartSignal.setGeometry(QtCore.QRect(160, 30, 60, 20))
-        self.spinBox_DefStartSignal.setLocale(
-            QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
-        self.spinBox_DefStartSignal.setButtonSymbols(
-            QtWidgets.QAbstractSpinBox.NoButtons)
+        self.spinBox_DefStartSignal.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
+        self.spinBox_DefStartSignal.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.spinBox_DefStartSignal.setMaximum(10000000)
         self.spinBox_DefStartSignal.setObjectName("spinBox_DefStartSignal")
-        self.doubleSpinBox_Step = QtWidgets.QDoubleSpinBox(
-            self.groupBox_Signal)
+        self.doubleSpinBox_Step = QtWidgets.QDoubleSpinBox(self.groupBox_Signal)
         self.doubleSpinBox_Step.setEnabled(False)
         self.doubleSpinBox_Step.setGeometry(QtCore.QRect(80, 30, 60, 20))
-        self.doubleSpinBox_Step.setLocale(
-            QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
-        self.doubleSpinBox_Step.setButtonSymbols(
-            QtWidgets.QAbstractSpinBox.NoButtons)
+        self.doubleSpinBox_Step.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
+        self.doubleSpinBox_Step.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.doubleSpinBox_Step.setDecimals(3)
         self.doubleSpinBox_Step.setMaximum(10.0)
         self.doubleSpinBox_Step.setObjectName("doubleSpinBox_Step")
         self.spinBox_Points = QtWidgets.QSpinBox(self.groupBox_Signal)
         self.spinBox_Points.setEnabled(False)
         self.spinBox_Points.setGeometry(QtCore.QRect(80, 60, 60, 20))
-        self.spinBox_Points.setLocale(
-            QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
-        self.spinBox_Points.setButtonSymbols(
-            QtWidgets.QAbstractSpinBox.NoButtons)
+        self.spinBox_Points.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
+        self.spinBox_Points.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.spinBox_Points.setMaximum(100000000)
         self.spinBox_Points.setProperty("value", 0)
         self.spinBox_Points.setObjectName("spinBox_Points")
@@ -143,59 +127,42 @@ class Ui_DockWidget_Analysis(object):
         self.checkBox_Hold = QtWidgets.QCheckBox(self.groupBox_Mass)
         self.checkBox_Hold.setGeometry(QtCore.QRect(260, 120, 70, 17))
         self.checkBox_Hold.setObjectName("checkBox_Hold")
-        self.doubleSpinBox_RefMass = QtWidgets.QDoubleSpinBox(
-            self.groupBox_Mass)
+        self.doubleSpinBox_RefMass = QtWidgets.QDoubleSpinBox(self.groupBox_Mass)
         self.doubleSpinBox_RefMass.setGeometry(QtCore.QRect(110, 30, 70, 20))
-        self.doubleSpinBox_RefMass.setLocale(
-            QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
-        self.doubleSpinBox_RefMass.setButtonSymbols(
-            QtWidgets.QAbstractSpinBox.NoButtons)
+        self.doubleSpinBox_RefMass.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
+        self.doubleSpinBox_RefMass.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.doubleSpinBox_RefMass.setDecimals(5)
         self.doubleSpinBox_RefMass.setMaximum(1000.0)
         self.doubleSpinBox_RefMass.setProperty("value", 303.0939)
         self.doubleSpinBox_RefMass.setObjectName("doubleSpinBox_RefMass")
-        self.doubleSpinBox_CycloFreq = QtWidgets.QDoubleSpinBox(
-            self.groupBox_Mass)
+        self.doubleSpinBox_CycloFreq = QtWidgets.QDoubleSpinBox(self.groupBox_Mass)
         self.doubleSpinBox_CycloFreq.setGeometry(QtCore.QRect(110, 60, 70, 20))
-        self.doubleSpinBox_CycloFreq.setLocale(
-            QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
-        self.doubleSpinBox_CycloFreq.setButtonSymbols(
-            QtWidgets.QAbstractSpinBox.NoButtons)
+        self.doubleSpinBox_CycloFreq.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
+        self.doubleSpinBox_CycloFreq.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.doubleSpinBox_CycloFreq.setDecimals(5)
         self.doubleSpinBox_CycloFreq.setMaximum(1000.0)
         self.doubleSpinBox_CycloFreq.setProperty("value", 255.727)
         self.doubleSpinBox_CycloFreq.setObjectName("doubleSpinBox_CycloFreq")
-        self.doubleSpinBox_MagFreq = QtWidgets.QDoubleSpinBox(
-            self.groupBox_Mass)
+        self.doubleSpinBox_MagFreq = QtWidgets.QDoubleSpinBox(self.groupBox_Mass)
         self.doubleSpinBox_MagFreq.setGeometry(QtCore.QRect(110, 90, 70, 20))
-        self.doubleSpinBox_MagFreq.setLocale(
-            QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
-        self.doubleSpinBox_MagFreq.setButtonSymbols(
-            QtWidgets.QAbstractSpinBox.NoButtons)
+        self.doubleSpinBox_MagFreq.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
+        self.doubleSpinBox_MagFreq.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.doubleSpinBox_MagFreq.setDecimals(5)
         self.doubleSpinBox_MagFreq.setMaximum(100.0)
         self.doubleSpinBox_MagFreq.setProperty("value", 0.001)
         self.doubleSpinBox_MagFreq.setObjectName("doubleSpinBox_MagFreq")
-        self.doubleSpinBox_PlotMassX1 = QtWidgets.QDoubleSpinBox(
-            self.groupBox_Mass)
-        self.doubleSpinBox_PlotMassX1.setGeometry(
-            QtCore.QRect(110, 120, 60, 20))
-        self.doubleSpinBox_PlotMassX1.setLocale(
-            QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
-        self.doubleSpinBox_PlotMassX1.setButtonSymbols(
-            QtWidgets.QAbstractSpinBox.NoButtons)
+        self.doubleSpinBox_PlotMassX1 = QtWidgets.QDoubleSpinBox(self.groupBox_Mass)
+        self.doubleSpinBox_PlotMassX1.setGeometry(QtCore.QRect(110, 120, 60, 20))
+        self.doubleSpinBox_PlotMassX1.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
+        self.doubleSpinBox_PlotMassX1.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.doubleSpinBox_PlotMassX1.setDecimals(1)
         self.doubleSpinBox_PlotMassX1.setMaximum(1000.0)
         self.doubleSpinBox_PlotMassX1.setProperty("value", 10.0)
         self.doubleSpinBox_PlotMassX1.setObjectName("doubleSpinBox_PlotMassX1")
-        self.doubleSpinBox_PlotMassX2 = QtWidgets.QDoubleSpinBox(
-            self.groupBox_Mass)
-        self.doubleSpinBox_PlotMassX2.setGeometry(
-            QtCore.QRect(180, 120, 60, 20))
-        self.doubleSpinBox_PlotMassX2.setLocale(
-            QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
-        self.doubleSpinBox_PlotMassX2.setButtonSymbols(
-            QtWidgets.QAbstractSpinBox.NoButtons)
+        self.doubleSpinBox_PlotMassX2 = QtWidgets.QDoubleSpinBox(self.groupBox_Mass)
+        self.doubleSpinBox_PlotMassX2.setGeometry(QtCore.QRect(180, 120, 60, 20))
+        self.doubleSpinBox_PlotMassX2.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
+        self.doubleSpinBox_PlotMassX2.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.doubleSpinBox_PlotMassX2.setDecimals(1)
         self.doubleSpinBox_PlotMassX2.setMaximum(3000.0)
         self.doubleSpinBox_PlotMassX2.setProperty("value", 600.0)
@@ -215,64 +182,45 @@ class Ui_DockWidget_Analysis(object):
         self.label_EndMass = QtWidgets.QLabel(self.groupBox_Peak)
         self.label_EndMass.setGeometry(QtCore.QRect(190, 55, 70, 16))
         self.label_EndMass.setObjectName("label_EndMass")
-        self.doubleSpinBox_PeakHeight = QtWidgets.QDoubleSpinBox(
-            self.groupBox_Peak)
-        self.doubleSpinBox_PeakHeight.setGeometry(
-            QtCore.QRect(100, 30, 60, 20))
-        self.doubleSpinBox_PeakHeight.setLocale(
-            QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
-        self.doubleSpinBox_PeakHeight.setButtonSymbols(
-            QtWidgets.QAbstractSpinBox.NoButtons)
+        self.doubleSpinBox_PeakHeight = QtWidgets.QDoubleSpinBox(self.groupBox_Peak)
+        self.doubleSpinBox_PeakHeight.setGeometry(QtCore.QRect(100, 30, 60, 20))
+        self.doubleSpinBox_PeakHeight.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
+        self.doubleSpinBox_PeakHeight.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.doubleSpinBox_PeakHeight.setDecimals(3)
         self.doubleSpinBox_PeakHeight.setObjectName("doubleSpinBox_PeakHeight")
         self.spinBox_PeakDistance = QtWidgets.QSpinBox(self.groupBox_Peak)
         self.spinBox_PeakDistance.setGeometry(QtCore.QRect(100, 55, 30, 20))
-        self.spinBox_PeakDistance.setLocale(
-            QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
-        self.spinBox_PeakDistance.setButtonSymbols(
-            QtWidgets.QAbstractSpinBox.NoButtons)
+        self.spinBox_PeakDistance.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
+        self.spinBox_PeakDistance.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.spinBox_PeakDistance.setMaximum(10000)
         self.spinBox_PeakDistance.setProperty("value", 0)
         self.spinBox_PeakDistance.setObjectName("spinBox_PeakDistance")
-        self.doubleSpinBox_StartMass = QtWidgets.QDoubleSpinBox(
-            self.groupBox_Peak)
+        self.doubleSpinBox_StartMass = QtWidgets.QDoubleSpinBox(self.groupBox_Peak)
         self.doubleSpinBox_StartMass.setGeometry(QtCore.QRect(260, 30, 60, 20))
-        self.doubleSpinBox_StartMass.setLocale(
-            QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
-        self.doubleSpinBox_StartMass.setButtonSymbols(
-            QtWidgets.QAbstractSpinBox.NoButtons)
+        self.doubleSpinBox_StartMass.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
+        self.doubleSpinBox_StartMass.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.doubleSpinBox_StartMass.setDecimals(1)
         self.doubleSpinBox_StartMass.setMaximum(1000.0)
         self.doubleSpinBox_StartMass.setObjectName("doubleSpinBox_StartMass")
-        self.doubleSpinBox_EndMass = QtWidgets.QDoubleSpinBox(
-            self.groupBox_Peak)
+        self.doubleSpinBox_EndMass = QtWidgets.QDoubleSpinBox(self.groupBox_Peak)
         self.doubleSpinBox_EndMass.setGeometry(QtCore.QRect(260, 55, 60, 20))
-        self.doubleSpinBox_EndMass.setLocale(
-            QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
-        self.doubleSpinBox_EndMass.setButtonSymbols(
-            QtWidgets.QAbstractSpinBox.NoButtons)
+        self.doubleSpinBox_EndMass.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
+        self.doubleSpinBox_EndMass.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.doubleSpinBox_EndMass.setDecimals(1)
         self.doubleSpinBox_EndMass.setMaximum(1000.0)
         self.doubleSpinBox_EndMass.setObjectName("doubleSpinBox_EndMass")
         self.spinBox_PeakDistanceFound = QtWidgets.QSpinBox(self.groupBox_Peak)
         self.spinBox_PeakDistanceFound.setEnabled(False)
-        self.spinBox_PeakDistanceFound.setGeometry(
-            QtCore.QRect(135, 55, 30, 20))
-        self.spinBox_PeakDistanceFound.setLocale(
-            QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
-        self.spinBox_PeakDistanceFound.setButtonSymbols(
-            QtWidgets.QAbstractSpinBox.NoButtons)
+        self.spinBox_PeakDistanceFound.setGeometry(QtCore.QRect(135, 55, 30, 20))
+        self.spinBox_PeakDistanceFound.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
+        self.spinBox_PeakDistanceFound.setButtonSymbols(QtWidgets.QAbstractSpinBox.NoButtons)
         self.spinBox_PeakDistanceFound.setMaximum(10000)
         self.spinBox_PeakDistanceFound.setProperty("value", 0)
-        self.spinBox_PeakDistanceFound.setObjectName(
-            "spinBox_PeakDistanceFound")
-        self.pushButton_UpdatePlots = QtWidgets.QPushButton(
-            self.dockWidgetContents)
+        self.spinBox_PeakDistanceFound.setObjectName("spinBox_PeakDistanceFound")
+        self.pushButton_UpdatePlots = QtWidgets.QPushButton(self.dockWidgetContents)
         self.pushButton_UpdatePlots.setEnabled(False)
-        self.pushButton_UpdatePlots.setGeometry(
-            QtCore.QRect(920, 130, 110, 23))
-        self.pushButton_UpdatePlots.setMaximumSize(
-            QtCore.QSize(16777215, 16777215))
+        self.pushButton_UpdatePlots.setGeometry(QtCore.QRect(920, 130, 110, 23))
+        self.pushButton_UpdatePlots.setMaximumSize(QtCore.QSize(16777215, 16777215))
         font = QtGui.QFont()
         font.setPointSize(8)
         font.setBold(False)
@@ -296,6 +244,9 @@ class Ui_DockWidget_Analysis(object):
         self.checkBox_AutoUpdate.setEnabled(False)
         self.checkBox_AutoUpdate.setGeometry(QtCore.QRect(770, 130, 101, 20))
         self.checkBox_AutoUpdate.setObjectName("checkBox_AutoUpdate")
+        self.pushButton_SaveToAscii = QtWidgets.QPushButton(self.dockWidgetContents)
+        self.pushButton_SaveToAscii.setGeometry(QtCore.QRect(820, 10, 141, 23))
+        self.pushButton_SaveToAscii.setObjectName("pushButton_SaveToAscii")
         DockWidget_Analysis.setWidget(self.dockWidgetContents)
 
         self.retranslateUi(DockWidget_Analysis)
@@ -303,50 +254,30 @@ class Ui_DockWidget_Analysis(object):
 
     def retranslateUi(self, DockWidget_Analysis):
         _translate = QtCore.QCoreApplication.translate
-        DockWidget_Analysis.setWindowTitle(
-            _translate("DockWidget_Analysis", "Analysis"))
-        self.groupBox_Signal.setTitle(
-            _translate("DockWidget_Analysis", "Signal"))
-        self.label_ExcitTruncate.setText(
-            _translate("DockWidget_Analysis", "Start Signal"))
-        self.label_EndTruncate.setText(
-            _translate("DockWidget_Analysis", "Stop Signal"))
+        DockWidget_Analysis.setWindowTitle(_translate("DockWidget_Analysis", "Analysis"))
+        self.groupBox_Signal.setTitle(_translate("DockWidget_Analysis", "Signal"))
+        self.label_ExcitTruncate.setText(_translate("DockWidget_Analysis", "Start Signal"))
+        self.label_EndTruncate.setText(_translate("DockWidget_Analysis", "Stop Signal"))
         self.label_Step.setText(_translate("DockWidget_Analysis", "Step (µs)"))
-        self.label_Points.setText(
-            _translate("DockWidget_Analysis", "Max Points"))
+        self.label_Points.setText(_translate("DockWidget_Analysis", "Max Points"))
         self.checkBox_Hann.setText(_translate("DockWidget_Analysis", "Hann"))
-        self.checkBox_ZeroFill.setText(
-            _translate("DockWidget_Analysis", "Zero (1*N)"))
-        self.checkBox_HalfHann.setText(
-            _translate("DockWidget_Analysis", "1/2 Hann"))
-        self.checkBox_ZeroFillTwice.setText(
-            _translate("DockWidget_Analysis", "Zero (2*N)"))
-        self.checkBox_NoZero.setText(
-            _translate("DockWidget_Analysis", "No Zero"))
-        self.groupBox_Mass.setTitle(
-            _translate("DockWidget_Analysis", "Mass Calibration"))
-        self.label_RefMass.setText(
-            _translate("DockWidget_Analysis", "Ref. mass (u)"))
-        self.label_CycloFreq.setText(
-            _translate("DockWidget_Analysis", "Cycl. Freq. (kHz)"))
-        self.label_MagFreq.setText(
-            _translate("DockWidget_Analysis", "Mag. Freq (kHz)"))
-        self.label_PlotStartMass.setText(
-            _translate("DockWidget_Analysis", "Plot mass limits"))
+        self.checkBox_ZeroFill.setText(_translate("DockWidget_Analysis", "Zero (1*N)"))
+        self.checkBox_HalfHann.setText(_translate("DockWidget_Analysis", "1/2 Hann"))
+        self.checkBox_ZeroFillTwice.setText(_translate("DockWidget_Analysis", "Zero (2*N)"))
+        self.checkBox_NoZero.setText(_translate("DockWidget_Analysis", "No Zero"))
+        self.groupBox_Mass.setTitle(_translate("DockWidget_Analysis", "Mass Calibration"))
+        self.label_RefMass.setText(_translate("DockWidget_Analysis", "Ref. mass (u)"))
+        self.label_CycloFreq.setText(_translate("DockWidget_Analysis", "Cycl. Freq. (kHz)"))
+        self.label_MagFreq.setText(_translate("DockWidget_Analysis", "Mag. Freq (kHz)"))
+        self.label_PlotStartMass.setText(_translate("DockWidget_Analysis", "Plot mass limits"))
         self.checkBox_Hold.setText(_translate("DockWidget_Analysis", "Hold"))
-        self.groupBox_Peak.setTitle(
-            _translate("DockWidget_Analysis", "Peak Detection"))
-        self.label_PeakHeight.setText(
-            _translate("DockWidget_Analysis", "Peak Height"))
-        self.label_PeakDistance.setText(
-            _translate("DockWidget_Analysis", "Peak Distance"))
-        self.label_StartMass.setText(
-            _translate("DockWidget_Analysis", "Start Mass"))
-        self.label_EndMass.setText(
-            _translate("DockWidget_Analysis", "End Mass"))
-        self.pushButton_UpdatePlots.setText(
-            _translate("DockWidget_Analysis", "Update Plots"))
-        self.label_Filename.setText(
-            _translate("DockWidget_Analysis", "FILENAME"))
-        self.checkBox_AutoUpdate.setText(
-            _translate("DockWidget_Analysis", "Auto Update"))
+        self.groupBox_Peak.setTitle(_translate("DockWidget_Analysis", "Peak Detection"))
+        self.label_PeakHeight.setText(_translate("DockWidget_Analysis", "Peak Height"))
+        self.label_PeakDistance.setText(_translate("DockWidget_Analysis", "Peak Distance"))
+        self.label_StartMass.setText(_translate("DockWidget_Analysis", "Start Mass"))
+        self.label_EndMass.setText(_translate("DockWidget_Analysis", "End Mass"))
+        self.pushButton_UpdatePlots.setText(_translate("DockWidget_Analysis", "Update Plots"))
+        self.label_Filename.setText(_translate("DockWidget_Analysis", "FILENAME"))
+        self.checkBox_AutoUpdate.setText(_translate("DockWidget_Analysis", "Auto Update"))
+        self.pushButton_SaveToAscii.setText(_translate("DockWidget_Analysis", "SAVE TO ASCII FILE..."))
+
