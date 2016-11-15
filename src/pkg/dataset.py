@@ -116,12 +116,26 @@ class RawDataset(object):
             dt = np.dtype([('points', '>i4')])
             data = np.fromfile(self.filename, dtype=dt, count=1)
             self.points = int(data['points'])
+            filesize = os.path.getsize(self.filename)
+            if (filesize < self.points * 4):
+                print("new PIRENEA data")
+                dt = np.dtype([('points', '>i4'), ('samples', '>i2', (self.points,)), ('step', '>f4'),
+                               ('gain', '>f4'), ('offset', '>f4')])
+                data = np.fromfile(self.filename, dtype=dt)
+                self.signal = data['samples'].ravel() * data['gain'] + data['offset']
+                print(data['points'], data['step'], data['gain'], data['offset'])
+                self.step = float(data['step'])  # step in microseconds
+
+            else:
+                print("old PIRENEA data")
+                dt = np.dtype([('points', '>i4'), ('samples', '>f', (self.points,)), ('step', '>f')])
+                data = np.fromfile(self.filename, dtype=dt)
+                self.signal = data['samples'].ravel()
+                self.step = float(data['step']) * 1e-6  # step in microseconds
+
             # Setup format of the binary part and read it (from is faster)
-            dt = np.dtype(
-                [('points', '>i4'), ('samples', '>f', (self.points,)), ('step', '>f')])
-            data = np.fromfile(self.filename, dtype=dt)
-            self.signal = data['samples'].ravel()
-            self.step = float(data['step']) * 1e-6  # step in microseconds
+#             dt = np.dtype(
+#                 [('points', '>i4'), ('samples', '>f', (self.points,)), ('step', '>f')])
             # Skip the binary part and read the script (readlines is faster)
             with open(self.filename, mode="rb") as fir:
                 fir.read(4 + (4 * self.points) + 4)
