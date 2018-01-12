@@ -18,4 +18,6 @@ encoding//src/gui/sequence.py=utf-8
 encoding//src/gui/sequence_qt.py=utf-8
 encoding//src/gui/toto.py=utf-8
 encoding//src/pkg/filenames.py=utf-8
+encoding//src/pkg/logs.py=utf-8
+encoding//src/pkg/peaks.py=utf-8
 encoding//src/pkg/spectrum.py=utf-8
