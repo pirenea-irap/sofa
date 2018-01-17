@@ -7,71 +7,17 @@
 """
 This module manages the PIRENEA raw datasets.
 """
+import logging
 import os.path
 import struct
-import time
 
 from numpy.core import numeric as num
 from numpy.core import umath as math
 
 import numpy as np
 from pkg.script import Script
-import logging
+
 log = logging.getLogger('root')
-
-
-class AlyxanRawDataset(object):
-
-    """
-    Manage PIRENEA binary AlyXan files (little-endian).
-
-    :Example:
-    >>> import Signal
-    >>> s = Signal()
-    >>> s.read("signal.dat")
-    >>> print (s.data[0:3])
-    >>> print (s.step)
-    [0.147, 0.148, 0.146]
-    0.1
-    """
-
-    def __init__(self):
-        """
-        Constructor
-        """
-        self.filename = ""
-
-    def read(self, filename=""):
-        """
-        Read a PIRENEA AlyXan binary file, in little-endian format.
-        Populate data[] with the raw signal values and stepTime in seconds.
-
-        :param filename: the name of the binary file to read
-        """
-        self.filename = filename
-        data = []
-        step = 0.0
-
-        try:
-            file = open(self.filename, mode="rb")
-            # Read the first 4 bytes and convert to Int = number of points
-            contents = file.read(4)
-            points = struct.unpack('i', contents)[0]
-            # Read all data points as float
-            contents = file.read(4 * points)
-            for i in range(points):
-                data.append(struct.unpack('f', contents[i * 4:(i + 1) * 4])[0])
-            # Read stepTime as double in seconds !!
-            contents = file.read(8)
-            step = struct.unpack('d', contents[0:8])[0] / 1000000.0
-            file.close()
-
-            return step, data
-
-        except (IOError) as error:
-            log.error("Unable to open : %s", error)
-        except (struct.error) as error:
-            log.error("Not a valid binary file : %s", error)
 
 
 class RawDataset(object):
@@ -81,7 +27,7 @@ class RawDataset(object):
 
     :Example:
 
-    >>> from pkg1.Dataset import RawDataset
+    >>> from pkg.dataset import RawDataset
     >>> s = RawDataset()
     >>> s.read("G:\\DATA_PIRENEA_OLD\\2014\\data140626\\26_06_2014_001.A00")
     >>> print ("Number of points: ", len(s.data))
@@ -119,8 +65,8 @@ class RawDataset(object):
             filesize = os.path.getsize(self.filename)
             if (filesize < self.points * 4):
                 print("new PIRENEA data")
-                dt = np.dtype([('points', '>i4'), ('samples', '>i2', (self.points,)), ('step', '>f4'),
-                               ('gain', '>f4'), ('offset', '>f4')])
+                dt = np.dtype([('points', '>i4'), ('samples', '>i2', (self.points,)),
+                               ('step', '>f4'), ('gain', '>f4'), ('offset', '>f4')])
                 data = np.fromfile(self.filename, dtype=dt)
                 self.signal = data['samples'].ravel() * data['gain'] + data['offset']
                 print(data['points'], data['step'], data['gain'], data['offset'])
@@ -128,7 +74,8 @@ class RawDataset(object):
 
             else:
                 print("old PIRENEA data")
-                dt = np.dtype([('points', '>i4'), ('samples', '>f', (self.points,)), ('step', '>f')])
+                dt = np.dtype([('points', '>i4'), ('samples', '>f', (self.points,)),
+                               ('step', '>f')])
                 data = np.fromfile(self.filename, dtype=dt)
                 self.signal = data['samples'].ravel()
                 self.step = float(data['step']) * 1e-6  # step in microseconds
@@ -218,6 +165,7 @@ class RawDataset(object):
         hann = signal * iarr
 
         return hann
+
 
 if __name__ == '__main__':
 
