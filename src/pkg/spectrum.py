@@ -7,9 +7,12 @@
 """
 Process mass and frequency spectra on PIRENEA data.
 """
+import logging
 import os
 from scipy import constants
+
 import numpy as np
+log = logging.getLogger("root")
 
 
 class FrequencySpectrum(object):
@@ -54,7 +57,7 @@ class FrequencySpectrum(object):
         """
         self.filename = filename
         if os.path.isfile(self.filename + "_fsp.txt"):
-            print("Frequency Spectrum ASCII file already exists")
+            log.info("Frequency Spectrum ASCII file already exists")
         else:
             with open(self.filename + "_sp.txt", mode="w", encoding='utf_8') as file:
                 n = len(self.spectrum)
@@ -83,9 +86,6 @@ class MassSpectrum(object):
         N. Bruneleau value : 255.710e3
         """
         self.f = freq
-#         print("min_freq=", min(freq))
-#         print("max_freq=", max(freq))
-#         self.mass = len(self.f) * [0.0]
         self.mass = np.zeros(len(self.f))
         self.refMass = ref_mass
         self.cyclotronFreq = cyclo_freq
@@ -105,9 +105,6 @@ class MassSpectrum(object):
             (self.cyclotronFreq - self.magnetronFreq) * self.magnetronFreq
         maxMass = A * A / (4 * B)
         minFreq = 2 * B / A
-#         print("type(minfreq) =", type(minFreq))
-#         print("maxMass=", maxMass)
-
         self.mass += maxMass
         mask = [self.f > minFreq]
         self.mass[mask] = A / self.f[mask] - B / (self.f[mask] ** 2)
@@ -127,7 +124,6 @@ class MassSpectrum(object):
         uma = constants.codata.value(
             'atomic mass constant')  # 1.660538921e-27 kg
         B0 = 5  # 5 Tesla for PIRENEA
-        print("q=", q, ", uma=", uma)
         for i in range(n):
             mass.append(q * B0 / (freq[i] * 2 * np.pi * uma))
         self.mass = mass
@@ -145,12 +141,8 @@ class MassSpectrum(object):
             if j == maxy:
                 bad_mass = xx[mask][i]
                 ind = i
-                print("i, j, bad_mass", i, j, bad_mass)
         delta_mass = (ref_mass / bad_mass)
-        print("bad, delta=", bad_mass, delta_mass)
-        print("xx UNCORRECT", xx[mask][ind])
         xx = np.array(self.mass) * delta_mass
-        print("xx correct", xx[mask][ind])
         self.mass = xx
 
     def write_to_textFile(self, filename=""):
@@ -160,7 +152,7 @@ class MassSpectrum(object):
         """
         self.filename = filename
         if os.path.isfile(self.filename + "_sp.txt"):
-            print("Mass Spectrum ASCII file already exists")
+            log.info("Mass Spectrum ASCII file already exists")
         else:
             with open(self.filename + "_sp.txt", mode="w", encoding='utf_8') as file:
                 n = len(self.mass)
@@ -253,4 +245,4 @@ if __name__ == '__main__':
     plt.show()
 
 else:
-    print("\nImporting... ", __name__)
+    log.info("Importing... %s", __name__)

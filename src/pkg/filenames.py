@@ -7,8 +7,8 @@
 """
 This module manages the PIRENEA filenames.
 """
-import os
 import logging
+import os
 log = logging.getLogger('root')
 
 
@@ -110,7 +110,26 @@ class FilesAndDirs(object):
 
         return dirname
 
-    def get_spectra(self, dirname):
+    def get_setup(self, dirname):
+        """
+        Return a list of setups for one directory
+        """
+        setups = []
+
+        if not os.path.isdir(dirname):
+            log.error("Not a directory: %s", dirname)
+        else:
+            self.files = os.listdir(dirname)
+            for f in self.files:
+                if len(f) == 21:
+                    setups.append(f[0:2])
+            """ remove duplicate names and sort the lists """
+            setups = list(dict().fromkeys(setups).keys())
+            setups.sort()
+
+        return setups
+
+    def get_spectra(self, dirname, setup):
         """
         Return a list of spectrum numbers for one directory
         """
@@ -121,15 +140,16 @@ class FilesAndDirs(object):
         else:
             self.files = os.listdir(dirname)
             for f in self.files:
-                if len(f) == 18:
-                    spectra.append(f[11:14])
+                if len(f) == 21:
+                    if (f[0:2] == (setup)):
+                        spectra.append(f[14:17])
             """ remove duplicate names and sort the lists """
             spectra = list(dict().fromkeys(spectra).keys())
             spectra.sort()
 
         return spectra
 
-    def get_acquis(self, directory, specNum):
+    def get_acquis(self, directory, setup, specNum):
         """
         Return a list of (acquisitions, accumulations) for one spectrum
         """
@@ -141,18 +161,18 @@ class FilesAndDirs(object):
         else:
             self.files = os.listdir(dirname)
             for f in self.files:
-                if len(f) == 18:
-                    if (f[11:14] == (specNum)):
-                        acquis.append(f[15:16])
+                if len(f) == 21:
+                    if (f[0:2] == (setup) and f[14:17] == (specNum)):
+                        acquis.append(f[18:19])
             """ remove duplicate names and sort the lists """
             acquis = list(dict().fromkeys(acquis).keys())
             acquis.sort()
 
         return acquis
 
-    def get_accums(self, directory, specNum, acquis):
+    def get_accums(self, directory, setup, specNum, acquis):
         """
-        Return a list of (acquisitions, accumulations) for one spectrum
+        Return a list of (accumulations) for one spectrum
         """
         dirname = directory
         accums = []
@@ -162,16 +182,16 @@ class FilesAndDirs(object):
         else:
             self.files = os.listdir(dirname)
             for f in self.files:
-                if len(f) == 18:
-                    if (f[11:14] == (specNum) and f[15:16] == (acquis)):
-                        accums.append(f[16:18])
+                if len(f) == 21:
+                    if (f[0:2] == (setup) and f[14:17] == (specNum) and f[18:19] == (acquis)):
+                        accums.append(f[19:21])
             """ remove duplicate names and sort the lists """
             accums = list(dict().fromkeys(accums).keys())
             accums.sort()
 
         return accums
 
-    def get_spectrumName(self, directory, year, month, day, specNum, acquis, accum):
+    def get_spectrumName(self, directory, year, month, day, setup, specNum, acquis, accum):
         """
         Return a spectrum name from a given directory, number, acquis, accum
         """
@@ -183,6 +203,7 @@ class FilesAndDirs(object):
         else:
             # create spectrum name
             spectrumName = dirname + os.sep + \
+                '%s' % setup + str("_") + \
                 '%d' % int(year) + str("_") + \
                 '%02d' % int(month) + str("_") + \
                 '%02d' % int(day) + str("_") + \
@@ -190,6 +211,7 @@ class FilesAndDirs(object):
                 str(acquis) + \
                 '%02d' % int(accum)
         return spectrumName
+
 
 if __name__ == '__main__':
     """ test within one directory """
