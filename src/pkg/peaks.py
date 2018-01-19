@@ -9,8 +9,9 @@ Detect peaks automatically.
 Picked up from internet.
 
 """
-import numpy as np
 import logging
+
+import numpy as np
 log = logging.getLogger('root')
 
 
@@ -80,7 +81,6 @@ class Peaks(object):
         >>> x[60:81] = np.nan
         >>> # detect all peaks and plot data
         >>> ind = detect_peaks(x, show=True)
-        >>> print(ind)
 
         >>> x = np.sin(2*np.pi*5*np.linspace(0, 1, 200)) + np.random.randn(200)/5
         >>> # set minimum peak height = 0 and minimum peak distance = 20

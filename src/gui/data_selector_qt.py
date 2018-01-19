@@ -6,20 +6,16 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-from PyQt5 import QtCore, QtWidgets
-
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_DockWidget_DataSelector(object):
-
     def setupUi(self, DockWidget_DataSelector):
         DockWidget_DataSelector.setObjectName("DockWidget_DataSelector")
         DockWidget_DataSelector.resize(320, 270)
         DockWidget_DataSelector.setMinimumSize(QtCore.QSize(320, 270))
         DockWidget_DataSelector.setMaximumSize(QtCore.QSize(320, 270))
-        DockWidget_DataSelector.setFeatures(
-            QtWidgets.QDockWidget.DockWidgetFloatable | QtWidgets.QDockWidget.DockWidgetMovable)
-        DockWidget_DataSelector.setAllowedAreas(
-            QtCore.Qt.LeftDockWidgetArea | QtCore.Qt.RightDockWidgetArea)
+        DockWidget_DataSelector.setFeatures(QtWidgets.QDockWidget.DockWidgetFloatable|QtWidgets.QDockWidget.DockWidgetMovable)
+        DockWidget_DataSelector.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea|QtCore.Qt.RightDockWidgetArea)
         self.dockWidgetContents = QtWidgets.QWidget()
         self.dockWidgetContents.setObjectName("dockWidgetContents")
         self.label_Folder = QtWidgets.QLabel(self.dockWidgetContents)
@@ -50,32 +46,38 @@ class Ui_DockWidget_DataSelector(object):
         self.pushButton_StartAnalysis.setGeometry(QtCore.QRect(90, 210, 130, 23))
         self.pushButton_StartAnalysis.setObjectName("pushButton_StartAnalysis")
         self.groupBox = QtWidgets.QGroupBox(self.dockWidgetContents)
-        self.groupBox.setGeometry(QtCore.QRect(9, 139, 291, 60))
+        self.groupBox.setGeometry(QtCore.QRect(9, 139, 300, 60))
         self.groupBox.setMinimumSize(QtCore.QSize(270, 60))
         self.groupBox.setMaximumSize(QtCore.QSize(300, 60))
         self.groupBox.setTitle("")
         self.groupBox.setObjectName("groupBox")
         self.label_Acquis = QtWidgets.QLabel(self.groupBox)
-        self.label_Acquis.setGeometry(QtCore.QRect(99, 10, 50, 16))
+        self.label_Acquis.setGeometry(QtCore.QRect(155, 10, 50, 16))
         self.label_Acquis.setObjectName("label_Acquis")
         self.label_3 = QtWidgets.QLabel(self.groupBox)
-        self.label_3.setGeometry(QtCore.QRect(189, 10, 50, 16))
+        self.label_3.setGeometry(QtCore.QRect(229, 10, 50, 16))
         self.label_3.setObjectName("label_3")
         self.label_Number = QtWidgets.QLabel(self.groupBox)
-        self.label_Number.setGeometry(QtCore.QRect(10, 10, 50, 16))
+        self.label_Number.setGeometry(QtCore.QRect(80, 10, 50, 16))
         self.label_Number.setObjectName("label_Number")
         self.comboBox_Number = QtWidgets.QComboBox(self.groupBox)
-        self.comboBox_Number.setGeometry(QtCore.QRect(10, 30, 69, 20))
+        self.comboBox_Number.setGeometry(QtCore.QRect(80, 30, 60, 20))
         self.comboBox_Number.setMaxVisibleItems(100)
         self.comboBox_Number.setObjectName("comboBox_Number")
         self.comboBox_Acquis = QtWidgets.QComboBox(self.groupBox)
-        self.comboBox_Acquis.setGeometry(QtCore.QRect(99, 30, 69, 20))
+        self.comboBox_Acquis.setGeometry(QtCore.QRect(155, 30, 60, 20))
         self.comboBox_Acquis.setMaxVisibleItems(100)
         self.comboBox_Acquis.setObjectName("comboBox_Acquis")
         self.comboBox_Accum = QtWidgets.QComboBox(self.groupBox)
-        self.comboBox_Accum.setGeometry(QtCore.QRect(189, 30, 69, 20))
+        self.comboBox_Accum.setGeometry(QtCore.QRect(229, 30, 60, 20))
         self.comboBox_Accum.setMaxVisibleItems(100)
         self.comboBox_Accum.setObjectName("comboBox_Accum")
+        self.label_Setup = QtWidgets.QLabel(self.groupBox)
+        self.label_Setup.setGeometry(QtCore.QRect(15, 10, 50, 13))
+        self.label_Setup.setObjectName("label_Setup")
+        self.comboBox_Setup = QtWidgets.QComboBox(self.groupBox)
+        self.comboBox_Setup.setGeometry(QtCore.QRect(15, 30, 50, 20))
+        self.comboBox_Setup.setObjectName("comboBox_Setup")
         self.lineEdit_Folder = QtWidgets.QLineEdit(self.dockWidgetContents)
         self.lineEdit_Folder.setGeometry(QtCore.QRect(60, 6, 133, 20))
         self.lineEdit_Folder.setMinimumSize(QtCore.QSize(120, 0))
@@ -108,16 +110,16 @@ class Ui_DockWidget_DataSelector(object):
 
     def retranslateUi(self, DockWidget_DataSelector):
         _translate = QtCore.QCoreApplication.translate
-        DockWidget_DataSelector.setWindowTitle(
-            _translate("DockWidget_DataSelector", "Data Selector"))
+        DockWidget_DataSelector.setWindowTitle(_translate("DockWidget_DataSelector", "Data Selector"))
         self.label_Folder.setText(_translate("DockWidget_DataSelector", "Root"))
         self.label_Year.setText(_translate("DockWidget_DataSelector", "Year"))
         self.label_Month.setText(_translate("DockWidget_DataSelector", "Month"))
         self.label_Day.setText(_translate("DockWidget_DataSelector", "Day"))
         self.label_Directory.setText(_translate("DockWidget_DataSelector", "Folder"))
-        self.pushButton_StartAnalysis.setText(
-            _translate("DockWidget_DataSelector", "Start Analysis"))
+        self.pushButton_StartAnalysis.setText(_translate("DockWidget_DataSelector", "Start Analysis"))
         self.label_Acquis.setText(_translate("DockWidget_DataSelector", "Acquis"))
         self.label_3.setText(_translate("DockWidget_DataSelector", "Accum"))
         self.label_Number.setText(_translate("DockWidget_DataSelector", "Number"))
-        self.lineEdit_Folder.setText(_translate("DockWidget_DataSelector", "D:\\PIRENEA_manips"))
+        self.label_Setup.setText(_translate("DockWidget_DataSelector", "Setup"))
+        self.lineEdit_Folder.setText(_translate("DockWidget_DataSelector", "D:\\PIRENEA\\DATA"))
+

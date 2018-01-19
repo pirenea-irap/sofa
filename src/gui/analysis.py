@@ -7,15 +7,14 @@
 """
 This module manage the GUI of the analysis.
 """
-import os
+import logging
 
-from PyQt5.QtWidgets import QDockWidget
 from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtWidgets import QDockWidget
 from PyQt5.QtWidgets import QFileDialog
-
 from gui.analysis_qt import Ui_DockWidget_Analysis
 from pkg.pipeline import Pipeline
-import logging
+
 log = logging.getLogger('root')
 
 
@@ -199,6 +198,7 @@ class AnalysisGUI(QDockWidget):
                         file.write('{0:10.4f} {1:f}\n'.format(x[i], y[i]))
             except (IOError) as error:
                 log.error("Unable to write into: %s", error)
+
 
 if __name__ == '__main__':
     pass

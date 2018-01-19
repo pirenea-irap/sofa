@@ -7,13 +7,14 @@
 """
 Process PIRENEA data.
 """
-
+import logging
 import numpy as np
 from pkg.dataset import RawDataset
 from pkg.peaks import Peaks
 from pkg.script import Script
 from pkg.spectrum import FrequencySpectrum
 from pkg.spectrum import MassSpectrum
+log = logging.getLogger('root')
 
 
 class Pipeline(object):
@@ -112,6 +113,7 @@ class Pipeline(object):
         self.mask = mask
         self.ind = ind
 
+
 if __name__ == '__main__':
 
     import matplotlib.pyplot as plt
@@ -156,4 +158,4 @@ if __name__ == '__main__':
     plt.show()
 
 else:
-    print("\nImporting... %s", __name__)
+    log.info("Importing... %s", __name__)

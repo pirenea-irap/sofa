@@ -48,6 +48,7 @@ class Logs(object):
         logger.addHandler(handler)
         return logger
 
+
 if __name__ == '__main__':
     pass
 else:
