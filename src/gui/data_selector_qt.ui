@@ -169,7 +169,7 @@
      <rect>
       <x>9</x>
       <y>139</y>
-      <width>291</width>
+      <width>300</width>
       <height>60</height>
      </rect>
     </property>
@@ -191,7 +191,7 @@
     <widget class="QLabel" name="label_Acquis">
      <property name="geometry">
       <rect>
-       <x>99</x>
+       <x>155</x>
        <y>10</y>
        <width>50</width>
        <height>16</height>
@@ -204,7 +204,7 @@
     <widget class="QLabel" name="label_3">
      <property name="geometry">
       <rect>
-       <x>189</x>
+       <x>229</x>
        <y>10</y>
        <width>50</width>
        <height>16</height>
@@ -217,7 +217,7 @@
     <widget class="QLabel" name="label_Number">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>80</x>
        <y>10</y>
        <width>50</width>
        <height>16</height>
@@ -230,9 +230,9 @@
     <widget class="QComboBox" name="comboBox_Number">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>80</x>
        <y>30</y>
-       <width>69</width>
+       <width>60</width>
        <height>20</height>
       </rect>
      </property>
@@ -243,9 +243,9 @@
     <widget class="QComboBox" name="comboBox_Acquis">
      <property name="geometry">
       <rect>
-       <x>99</x>
+       <x>155</x>
        <y>30</y>
-       <width>69</width>
+       <width>60</width>
        <height>20</height>
       </rect>
      </property>
@@ -256,14 +256,37 @@
     <widget class="QComboBox" name="comboBox_Accum">
      <property name="geometry">
       <rect>
-       <x>189</x>
+       <x>229</x>
        <y>30</y>
-       <width>69</width>
+       <width>60</width>
        <height>20</height>
       </rect>
      </property>
      <property name="maxVisibleItems">
       <number>100</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_Setup">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>10</y>
+       <width>50</width>
+       <height>13</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Setup</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_Setup">
+     <property name="geometry">
+      <rect>
+       <x>15</x>
+       <y>30</y>
+       <width>50</width>
+       <height>20</height>
+      </rect>
      </property>
     </widget>
    </widget>
@@ -283,7 +306,7 @@
      </size>
     </property>
     <property name="text">
-     <string>D:\PIRENEA_manips</string>
+     <string>D:\PIRENEA\DATA</string>
     </property>
     <property name="readOnly">
      <bool>false</bool>

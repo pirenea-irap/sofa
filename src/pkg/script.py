@@ -7,8 +7,8 @@
 """
 Process PIRENEA scripts.
 """
-import os.path
 import logging
+import os.path
 log = logging.getLogger("root")
 
 
@@ -122,7 +122,7 @@ class Script(object):
                 log.debug("all detections = %s", self.detectBuffer)
                 log.debug("detection used = %s", self.detection)
         else:
-            print("Filename does not exist:", self.filename + "_sc.txt")
+            log.info("Filename does not exist: %s_sc.txt", self.filename)
 
     def get_excit(self):
         return self.excitBuffer, self.excitation
@@ -167,4 +167,4 @@ if __name__ == '__main__':
         print("text = ", text)
         print("format", "{:.1f}".format(float(eject[3])))
 else:
-    print("\nImporting... ", __name__)
+    log.info("Importing... %s", __name__)

@@ -10,10 +10,12 @@ this module manages the main GUI.
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import QMainWindow, QApplication
 
-from pkg.logs import Logs
-log = Logs('root').setup_logger("debug")
-# import MUST be after declaration of log
 from gui.main_window_qt import Ui_MainWindow
+from pkg.logs import Logs
+
+
+log = Logs('root').setup_logger("info")
+# import MUST be after declaration of log
 
 
 class MainWindowGUI(QMainWindow):
