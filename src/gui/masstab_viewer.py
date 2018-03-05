@@ -7,6 +7,7 @@
 """
 This module manages the GUI of the masstab viewer.
 """
+import logging
 import os
 
 from PyQt5.QtWidgets import QDockWidget
@@ -14,7 +15,8 @@ from PyQt5.QtWidgets import QFileDialog
 
 from gui.masstab_viewer_qt import Ui_DockWidget_MassTabViewer
 from pkg.peaks import Peaks
-import logging
+
+
 log = logging.getLogger('root')
 
 
@@ -57,11 +59,22 @@ class MassTabViewerGUI(QDockWidget):
         log.debug("event from %s", self.sender())
         #         self.__clear_text()
         self.mass_list = sorted(mass_list)
-        text = "\n" + " " * 21
+        text = "\n" + " " * 24
         for mass in self.mass_list:
-            text = text + str(mass).ljust(8)
-        text = text + "\n" + "=" * 18
+            text = text + (str(mass) + "_M").ljust(9) + \
+                (str(mass) + "_I").ljust(9)
+        text = text + "\n" + "=" * 21
         self.ui.plainTextEdit_Viewer.appendPlainText(text)
+
+#     def update_columns(self, mass_list):
+#         log.debug("event from %s", self.sender())
+#         #         self.__clear_text()
+#         self.mass_list = sorted(mass_list)
+#         text = "\n" + " " * 21
+#         for mass in self.mass_list:
+#             text = text + str(mass).ljust(8)
+#         text = text + "\n" + "=" * 18
+#         self.ui.plainTextEdit_Viewer.appendPlainText(text)
 
     def update_filename(self, filename):
         log.debug("event from %s", self.sender())
@@ -85,22 +98,33 @@ class MassTabViewerGUI(QDockWidget):
         y = self.ana.pip.spectrum
         self.acc_event()
         p = Peaks()
-        dict_peak = p.masstab_peaks(x, y, self.mass_list, self.acc)
-        text = str(self.short_name).ljust(21)
+        dict_m, dict_i = p.masstab_peaks(x, y, self.mass_list, self.acc)
+        text = str(self.short_name).ljust(24)
         for mass in self.mass_list:
-            text = text + "{:.3f}".format(float(dict_peak[mass])).ljust(8)
+            text = text + \
+                "{:.4f}".format(float(dict_m[mass])).ljust(9) + \
+                "{:.3f}".format(float(dict_i[mass])).ljust(9)
+#         dict_peak = p.masstab_peaks(x, y, self.mass_list, self.acc)
+#         text = str(self.short_name).ljust(21)
+#         for mass in self.mass_list:
+#             text = text + "{:.3f}".format(float(dict_peak[mass])).ljust(8)
         self.ui.plainTextEdit_Viewer.appendPlainText(text)
 
     def write_file(self):
         log.debug("event from %s", self.sender())
         try:
-            answer = QFileDialog.getSaveFileName(self, 'MassTab File', self.dir_name)
+            new_dir = self.dir_name.replace("DATA", "MASS")
+            if not os.path.isdir(new_dir):
+                os.makedirs(new_dir)
+            print("new_dir=", new_dir)
+            answer = QFileDialog.getSaveFileName(self, 'MassTab File', new_dir)
             filename = os.path.abspath(answer[0])
             log.debug("Written file %s...", filename)
             with open(filename, mode='w', encoding='utf_8') as file:
                 file.write(self.ui.plainTextEdit_Viewer.toPlainText())
         except (IOError) as error:
             log.error("Unable to write into: %s", error)
+
 
 if __name__ == '__main__':
     pass
