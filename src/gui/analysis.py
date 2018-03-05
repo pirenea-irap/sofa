@@ -125,7 +125,7 @@ class AnalysisGUI(QDockWidget):
         self.ui.pushButton_UpdatePlots.setEnabled(True)
         self.ui.checkBox_AutoUpdate.setEnabled(True)
 
-        log.info("PIPELINE started...")
+        log.debug("PIPELINE started...")
         self.pip = Pipeline(self.filename)
 
         # Update parameters box
@@ -148,7 +148,6 @@ class AnalysisGUI(QDockWidget):
             self.update_pipeline()
 
     def update_pipeline(self):
-        log.debug("...")
         self.pip.process_signal(
             self.start_signal, self.end_signal, self.hann, self.half, self.zero, self.zero_twice)
         self.pip.process_spectrum(
