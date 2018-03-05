@@ -63,8 +63,8 @@ class RawDataset(object):
             data = np.fromfile(self.filename, dtype=dt, count=1)
             self.points = int(data['points'])
             filesize = os.path.getsize(self.filename)
+            # new PIRENEA setup
             if (filesize < self.points * 4):
-                log.info("new PIRENEA data")
                 dt = np.dtype([('points', '>i4'), ('samples', '>i2', (self.points,)),
                                ('step', '>f4'), ('gain', '>f4'), ('offset', '>f4')])
                 data = np.fromfile(self.filename, dtype=dt)
@@ -73,7 +73,7 @@ class RawDataset(object):
                 self.step = float(data['step'])  # step in microseconds
 
             else:
-                log.info("old PIRENEA data")
+                # old PIRENEA setup
                 dt = np.dtype([('points', '>i4'), ('samples', '>f', (self.points,)),
                                ('step', '>f')])
                 data = np.fromfile(self.filename, dtype=dt)
