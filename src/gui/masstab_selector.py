@@ -7,12 +7,15 @@
 """
 This module manages the GUI of the masstab selector.
 """
-from PyQt5.QtWidgets import QDockWidget
-from PyQt5.QtGui import QStandardItem, QStandardItemModel
+import logging
+
 from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtGui import QStandardItem, QStandardItemModel
+from PyQt5.QtWidgets import QDockWidget
 
 from gui.masstab_selector_qt import Ui_DockWidget_MassTabSelector
-import logging
+
+
 log = logging.getLogger('root')
 
 
@@ -37,10 +40,10 @@ class MassTabSelectorGUI(QDockWidget):
         self.model = QStandardItemModel()
         self.mass_list = []
         for i in range(20):
-            mass = 290 + i
+            mass = 290.0 + i
             self.mass_list.append(str(mass))
         for i in range(10):
-            mass = 599 + i
+            mass = 599.0 + i
             self.mass_list.append(str(mass))
         for mass in self.mass_list:
             item = QStandardItem(mass)

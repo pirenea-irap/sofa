@@ -184,20 +184,43 @@ class Peaks(object):
 
         return mph, mpd, mask
 
+#     def masstab_peaks(self, xx, yy, ind_list, accuracy=0.2):
+#         res = {}
+#         x = np.asarray(xx)
+#         y = np.asarray(yy)
+#         a = accuracy
+#         for dummy, index in enumerate(ind_list):
+#             m = float(index)
+#             mask = [(x >= m - a) & (x <= m + a)]
+#             if len(y[mask]) > 0:
+#                 peak = max(y[mask])
+#                 res[index] = peak
+#             else:
+#                 res[index] = 0.0
+#         return res
+
     def masstab_peaks(self, xx, yy, ind_list, accuracy=0.2):
-        res = {}
+        res_m = {}
+        res_i = {}
         x = np.asarray(xx)
         y = np.asarray(yy)
         a = accuracy
         for dummy, index in enumerate(ind_list):
             m = float(index)
             mask = [(x >= m - a) & (x <= m + a)]
+            # process peaks around a mass value
             if len(y[mask]) > 0:
+                # find max value = peak
                 peak = max(y[mask])
-                res[index] = peak
+                # find exact mass corresponding to the peak
+                val = [i for i, j in enumerate(y[mask]) if j == peak]
+                res_m[index] = x[mask][val]
+                res_i[index] = y[mask][val]
             else:
-                res[index] = 0.0
-        return res
+                res_m[index] = 0.0
+                res_i[index] = 0.0
+
+        return res_m, res_i
 
 
 if __name__ == '__main__':
