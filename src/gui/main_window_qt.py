@@ -74,11 +74,10 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "SOFA v1.4"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "SOFA v1.5"))
 
 
 from gui.analysis import AnalysisGUI
-
 from gui.data_selector import DataSelectorGUI
 from gui.masstab_selector import MassTabSelectorGUI
 from gui.masstab_viewer import MassTabViewerGUI
