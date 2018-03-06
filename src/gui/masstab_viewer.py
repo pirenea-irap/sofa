@@ -66,16 +66,6 @@ class MassTabViewerGUI(QDockWidget):
         text = text + "\n" + "=" * 21
         self.ui.plainTextEdit_Viewer.appendPlainText(text)
 
-#     def update_columns(self, mass_list):
-#         log.debug("event from %s", self.sender())
-#         #         self.__clear_text()
-#         self.mass_list = sorted(mass_list)
-#         text = "\n" + " " * 21
-#         for mass in self.mass_list:
-#             text = text + str(mass).ljust(8)
-#         text = text + "\n" + "=" * 18
-#         self.ui.plainTextEdit_Viewer.appendPlainText(text)
-
     def update_filename(self, filename):
         log.debug("event from %s", self.sender())
         self.ui.pushButton_Automatic.setEnabled(True)
@@ -104,19 +94,14 @@ class MassTabViewerGUI(QDockWidget):
             text = text + \
                 "{:.4f}".format(float(dict_m[mass])).ljust(9) + \
                 "{:.3f}".format(float(dict_i[mass])).ljust(9)
-#         dict_peak = p.masstab_peaks(x, y, self.mass_list, self.acc)
-#         text = str(self.short_name).ljust(21)
-#         for mass in self.mass_list:
-#             text = text + "{:.3f}".format(float(dict_peak[mass])).ljust(8)
         self.ui.plainTextEdit_Viewer.appendPlainText(text)
 
     def write_file(self):
         log.debug("event from %s", self.sender())
         try:
-            new_dir = self.dir_name.replace("DATA", "MASS")
+            new_dir = self.dir_name.replace("DATA", "DATA" + os.sep + "MASS")
             if not os.path.isdir(new_dir):
                 os.makedirs(new_dir)
-            print("new_dir=", new_dir)
             answer = QFileDialog.getSaveFileName(self, 'MassTab File', new_dir)
             filename = os.path.abspath(answer[0])
             log.debug("Written file %s...", filename)
