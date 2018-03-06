@@ -55,10 +55,14 @@ class Pipeline(object):
             self.signal = self.raw.hann(self.signal, half=True)
         if zero:
             dummy = np.zeros(self.points)
+            if (end > self.points):
+                end = self.points
             dummy[0:(end - start)] = self.signal
             self.signal = dummy
         if zero_twice:
             dummy = np.zeros(self.points * 2)
+            if (end > self.points):
+                end = self.points
             dummy[0:(end - start)] = self.signal
             self.signal = dummy
 
