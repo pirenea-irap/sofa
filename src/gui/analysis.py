@@ -8,6 +8,7 @@
 This module manage the GUI of the analysis.
 """
 import logging
+import os
 
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QDockWidget
@@ -48,6 +49,7 @@ class AnalysisGUI(QDockWidget):
     def __connect_events(self):
         self.ds.analysisRaisedSignal.connect(self.new_analysis)
         self.ui.pushButton_SaveToAscii.clicked.connect(self.save_to_ascii_file)
+        self.ui.pushButton_ChangeAsciiDir.clicked.connect(self.change_ascii_dir)
         self.ui.pushButton_UpdatePlots.clicked.connect(self.emit_plot_signals)
         # changes in signal GroupBox
         self.ui.spinBox_StartSignal.valueChanged.connect(
@@ -99,7 +101,7 @@ class AnalysisGUI(QDockWidget):
     def __fill_default_analysis(self):
         # signal
         self.ui.spinBox_StartSignal.setValue(0)
-        self.ui.spinBox_EndSignal.setValue(300000)
+        self.ui.spinBox_EndSignal.setValue(100000)
         # Mass calib
         self.ui.doubleSpinBox_RefMass.setValue(300.0939)
         self.ui.doubleSpinBox_CycloFreq.setValue(255.727)
@@ -113,14 +115,22 @@ class AnalysisGUI(QDockWidget):
         self.ui.doubleSpinBox_StartMass.setValue(290.0)
         self.ui.doubleSpinBox_EndMass.setValue(310.0)
         # Plots
-        self.ui.checkBox_AutoUpdate.setChecked(False)
+        self.ui.checkBox_AutoUpdate.setChecked(True)
         self.filename = ""
+        self.ascii_dir = ""
 
     def new_analysis(self, filename):
         log.info("analysis of %s", filename)
         self.filename = filename
-        shortname = str(self.filename).split(sep="\\")
-        self.shortname = shortname[-1]
+#         shortname = str(self.filename).split(sep="\\")
+        self.shortname = str(self.filename).split(os.sep)[-1]
+        if len(self.ascii_dir) == 0:
+            fold = os.sep.join(self.filename.split(os.sep)[0:-3])
+            fold = os.sep.join([fold, "ASCII"])
+            if not os.path.isdir(fold):
+                os.makedirs(fold)
+            self.ascii_dir = fold
+
         self.ui.lineEdit_File.setText(self.shortname)
         self.ui.pushButton_UpdatePlots.setEnabled(True)
         self.ui.checkBox_AutoUpdate.setEnabled(True)
@@ -182,6 +192,19 @@ class AnalysisGUI(QDockWidget):
             float(self.mph), int(self.mpd), float(self.peaks_x1),
             float(self.peaks_x2))
 
+    def change_ascii_dir(self):
+        log.debug("event from %s", self.sender())
+        try:
+            if len(self.ascii_dir) > 0:
+                answer = QFileDialog.getExistingDirectory(self, 'ASCII directory', self.ascii_dir,
+                                                          QFileDialog.ShowDirsOnly)
+                if len(answer) > 0:
+                    self.ascii_dir = os.path.normpath(answer)
+                    if not os.path.isdir(self.ascii_dir):
+                        os.makedirs(self.ascii_dir)
+        except (IOError) as error:
+            log.error("Unable to write into: %s", error)
+
     def save_to_ascii_file(self):
         log.debug("event from %s", self.sender())
         if len(self.filename) > 0:
@@ -190,11 +213,42 @@ class AnalysisGUI(QDockWidget):
             x = self.pip.mass[mask][::-1]
             y = self.pip.spectrum[mask][::-1]
             try:
-                ascii_name = self.filename + "_sp.txt"
+                if len(self.ascii_dir) == 0:
+                    self.change_ascii_dir()
+                i = 0
+                fname = self.shortname + '-{:03d}.txt'.format(int(i))
+                ascii_name = os.sep.join([self.ascii_dir, fname])
+                while True:
+                    if os.path.exists(ascii_name):
+                        ascii_name = ascii_name.split('-')[0]
+                        ascii_name = ascii_name + '-{:03d}.txt'.format(int(i))
+                        i = i + 1
+                    else:
+                        break
                 log.info("Written file %s...", ascii_name)
+                strHann = "No Hanning"
+                if self.hann or self.hann:
+                    if self.hann:
+                        strHann = "Hanning"
+                    else:
+                        strHann = "Half Hanning"
+
+                strZero = "no Zero"
+                if self.zero or self.zero_twice:
+                    if self.zero:
+                        strZero = "1*N zeros"
+                    else:
+                        strZero = "2*N zeros"
+
                 with open(ascii_name, mode='w', encoding='utf_8') as file:
+                    file.write('{0}\n\n'.format(self.filename.split(os.sep)[-1]))
+                    file.write('Ref. mass (u)     : {0:9.5f}\n'.format(float(self.ref_mass)))
+                    file.write('Cycl. Freq. (kHz) : {0:9.5f}\n'.format(float(self.cyclo_freq)))
+                    file.write('Mag. Freq. (kHz)  : {0:9.5f}\n\n'.format(float(self.mag_freq)))
+                    file.write('Start : {0:d}, End : {1:d}\n'.format(self.start_signal, self.end_signal))
+                    file.write('{0}, and {1}\n\n'.format(strHann, strZero))
                     for i in range(len(x)):
-                        file.write('{0:10.4f} {1:f}\n'.format(x[i], y[i]))
+                        file.write('{0:<10.6f} {1:f}\n'.format(x[i], y[i]))
             except (IOError) as error:
                 log.error("Unable to write into: %s", error)
 

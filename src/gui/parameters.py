@@ -129,6 +129,7 @@ class ParametersGUI(QDockWidget):
         if self.detection:
             self.ui.comboBox_DetectName.addItem(self.detection)
 
+
 if __name__ == '__main__':
     pass
 else:
