@@ -79,6 +79,15 @@ class PlotsGUI(QTabWidget):
         self.ana.plotSpecRaisedSignal.connect(self.update_spectrum)
         self.ana.plotMassRaisedSignal.connect(self.update_mass)
         self.ana.plotPeaksRaisedSignal.connect(self.update_peaks)
+        self.currentChanged.connect(self.change_tab)
+
+    def change_tab(self):
+        if self.currentIndex() == 3:
+            self.ana.ui.pushButton_SaveToAscii.setVisible(True)
+            self.ana.ui.pushButton_ChangeAsciiDir.setVisible(True)
+        else:
+            self.ana.ui.pushButton_SaveToAscii.setVisible(False)
+            self.ana.ui.pushButton_ChangeAsciiDir.setVisible(False)
 
     def update_signal(self, shortname, y, step, start, end):
         title = shortname + " - signal - " + \
@@ -165,6 +174,7 @@ class MatplotlibWidget(Canvas):
 #             self.ax.annotate("{:.3f}".format(float(j)), xy=(i, j), size=10)
             self.ax.annotate(text, xy=(i, j), xytext=(i, j), size=10)
         self.draw()
+
 
 if __name__ == '__main__':
     pass
