@@ -50,24 +50,6 @@ class FrequencySpectrum(object):
         self.freq = f
         self.powerSpectrum = np.abs(self.spectrum) ** 2
 
-    def write_to_textFile(self, filename=""):
-        """
-        Writes a frequency spectrum to a file, in ASCII format.
-
-        """
-        self.filename = filename
-        if os.path.isfile(self.filename + "_fsp.txt"):
-            log.info("Frequency Spectrum ASCII file already exists")
-        else:
-            with open(self.filename + "_sp.txt", mode="w", encoding='utf_8') as file:
-                n = len(self.spectrum)
-                linew = str(n) + "\n"
-                file.write(linew)
-                for i in range(n):
-                    linew = "{:.5E}".format(self.freq[i]) + "\t" + \
-                            "{:.5E}".format(self.spectrum[i]) + "\n"
-                    file.write(linew)
-
 
 class MassSpectrum(object):
 
@@ -161,10 +143,20 @@ class MassSpectrum(object):
                 for i in range(n):
                     linew = "{:.5E}".format(self.mass[i])
                     file.write(linew)
+                n = len(self.spectrum)
+                linew = str(n) + "\n"
+                file.write(linew)
+                for i in range(n):
+                    linew = "{:.5E}".format(self.freq[i]) + "\t" + \
+                            "{:.5E}".format(self.spectrum[i]) + "\n"
+                    file.write(linew)
 
 
 if __name__ == '__main__':
-    #     from pkg1.dataset import AlyxanRawDataset
+
+    """
+    main method to test this script as a unit test.
+    """
     from pkg.dataset import RawDataset
     import matplotlib.pyplot as plt
 
@@ -172,76 +164,41 @@ if __name__ == '__main__':
     fig, (ax1, ax2, ax3) = plt.subplots(3, 1)
 
     # Read PIRENEA signal
-    filename = "G:\\PIRENEA_manips\\2014\\data_2014_07_30\\2014_07_30_001.A00"
-    #     filename = "D:\\PIRENEA_manips\\data140515\\15_05_2014_001.A00"
-    #     filename = "G:\\DATA_PIRENEA_OLD\\DATA_2014\\data140515\\15_05_2014_001.A00"
-    filename = "G:\\PIRENEA_manips\\2014\\data_2014_06_26\\2014_06_26_010.A00"
+#     filename = "G:\\PIRENEA_manips\\2014\\data_2014_06_26\\2014_06_26_010.A00"
+    filename = "Y:\\2018\\data_2018_07_20\\P1_2018_07_20_025.A00"
+
     raw = RawDataset(filename)
     points = len(raw.signal)
-    start = raw.start
-    end = raw.end
     step = raw.step
-    raw.hann()
+    y = raw.signal
 
-    raw.truncate(start, end)
-
-    y1 = raw.signal[start:end]
-    limit = end - start
-
-    y2 = raw.truncated
-
-#     y3 = raw.signal[start:]
-#     y3[end - start:] = 0.0
-
-    y = y2
-    x = np.arange(len(y)) * step
-    print("len signal x, y=", len(x), len(y))
+    # Plot signal
+    x = np.arange(points)
+    x = x * raw.step * 1.e3
     ax1.plot(x, y)
-    ax1.set_xlabel("time(s)")
+    ax1.set_xlabel("time(ms)")
 
     # Real FFT on complete signal
     fs = FrequencySpectrum(y, step)
     y = fs.spectrum * 1000.0
     x = fs.freq / 1000.0            # in kHz
-    print("points, len x, y", points, len(x), len(y))
     ax2.plot(x, y)
     ax2.set_xlabel('Freq (kHz)')
     ax2.set_ylabel('|rfft|')
 
-#     Write to ASCII
-#     fs.write_to_textFile(filename)
+    # Write to ASCII (could be long if lot of points)
+#     fs.write_to_textFile("D:\\PIRENEA\\FREQ_to_delete.txt")
 
-# Mass with approximative calibration
-    # Calculate mass
+    # Calculate mass with approximative calibration
     x = fs.freq
-    ms = MassSpectrum(x, y)
+    ms = MassSpectrum(x, ref_mass=300.0939, cyclo_freq=255.723e3, mag_freq=0.001e3)
     xx = np.array(ms.mass)
-    print("freq=", x)
-    print("mass=", xx)
 
     mask = [(xx > 280.0) & (xx < 310.0)]
-    print("len ymask=", len(xx[mask]), len(y[mask]), y[mask][0])
     ax3.plot(xx[mask], y[mask])
     ax3.set_xlabel('mass (u.a.m.)')
     ax3.set_ylabel('|rfft|')
 
-    # Truncate signal of excitation
-#     so.hann()
-#     y = so.data
-#     y = y[2400:]
-#     print ("len signal=", len(y))
-#     x = np.arange(len(y)) * step
-#     plt.subplot(2, 2, 3)
-#     plt.plot(x, y)
-
-    # Real FFT on signal, minus excitation
-#     y = so.data
-#     print ("len signal2=", len(y))
-#     spec.calculate_FFT(y, step)
-#     plt.subplot(2, 2, 4)
-#     plt.plot(spec.freq / 1000.0, abs(spec.spectrum))
-#     plt.xlabel('Freq (kHz)')
-#     plt.ylabel('|rfft|')
     plt.show()
 
 else:

@@ -25,7 +25,7 @@ class FilesAndDirs(object):
         self.year = int(year)
         self.month = int(month)
         self.day = int(day)
-        self.folder = folder + os.sep + "PIRENEA_manips"
+        self.folder = folder + os.sep + "PIRENEA" + os.sep + "DATA"
         self.files = []
 
     def get_years(self, folder):
@@ -214,21 +214,36 @@ class FilesAndDirs(object):
 
 
 if __name__ == '__main__':
-    """ test within one directory """
-#     folder = input("Root directory for data (G:\PIRENEA_manips):")
-#     year = input("Year (2014):")
-#     month = input("Month (5):")
-#     day = input("Day (12):")
-    fi = FilesAndDirs("G:\PIRENEA_manips", 2014, 5, 12)
-    years = fi.get_years("G:\PIRENEA_manips")
+
+    """
+    main method to test this script as a unit test.
+    """
+    fi = FilesAndDirs()
+    years = fi.get_years("Y:\\")
     print("years=", years)
-    directory = "G:\PIRENEA_manips\\2014\\data_2014_05_12"
-    spectra = fi.get_spectra(directory)
+    months = fi.get_months(int("2018"))
+    print("months=", months)
+    days = fi.get_days(2018, int("01"))
+    print("days=", days)
+    dirname = fi.get_dirname("Y:\\", int("2018"), int("01"), int("23"))
+    print("dirname=", dirname)
+    setups = fi.get_setup(dirname)
+    print("setups=", setups)
+    spectra = fi.get_spectra(dirname, str("P1"))
     print("spectra=", spectra)
-    acquis = fi.get_acquis(directory, "001")
-    accums = fi.get_accums(directory, "001", "A")
-    print("acq=", acquis, "acc=", accums)
-    specName = fi.get_spectrumName(directory, 2014, 5, 12, 1, str("A"), 1)
+    acquis = fi.get_acquis(dirname, str("P1"), str("001"))
+    print("acquis=", acquis)
+    accums = fi.get_accums(dirname, str("P1"), str("001"), str("A"))
+    print("accums=", accums)
+    specName = fi.get_spectrumName(dirname,
+                                   int("2018"),
+                                   int("01"),
+                                   int("23"),
+                                   str("P1"),
+                                   str("001"),
+                                   str("A"),
+                                   str("00")
+                                   )
     print("name = ", specName)
 
 else:
