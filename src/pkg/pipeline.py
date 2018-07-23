@@ -41,11 +41,11 @@ class Pipeline(object):
             self.scr = Script(self.filename)
             duration = self.scr.get_excit_duration()
             self.start = round(duration / self.step)
-            self.end = round(self.points / 2)
+            self.end = self.points
         # if script is not available, fix arbitrary limits
         else:
             self.start = 0
-            self.end = round(self.points / 2)
+            self.end = self.points
 
     def process_signal(self, start=0, end=0, hann=False, half=False, zero=False, zero_twice=False):
         self.signal = self.raw.truncate(start, end)
@@ -122,23 +122,19 @@ if __name__ == '__main__':
 
     import matplotlib.pyplot as plt
 
-    # step = 0.5 524288
-    filename = "G:\\PIRENEA_manips\\2010\\data_2010_07_27\\2010_07_27_002.A00"
-    filename = "G:\\PIRENEA_manips\\2014\\data_2014_06_26\\2014_06_26_011.A00"
-    filename = "G:\\PIRENEA_manips\\2014\\data_2014_07_30\\2014_07_30_001.A00"
-    filename = "G:\\PIRENEA_manips\\2014\\data_2014_07_30\\2014_07_30_001.A00"
-    filename = "G:\\PIRENEA_manips\\2010\\data_2010_07_27\\2010_07_27_002.A00"
-    filename = "G:\\PIRENEA_manips\\2014\\data_2014_05_12\\2014_05_12_005.A00"
-    filename = "G:\\PIRENEA_manips\\2014\\data_2014_06_26\\2014_06_26_011.A00"
+#     filename = "G:\\PIRENEA_manips\\2014\\data_2014_06_26\\2014_06_26_011.A00"
+    filename = "Y:\\2018\\data_2018_07_20\\P1_2018_07_20_025.A00"
 
     pip = Pipeline(filename)
+    pip.process_signal(pip.start, pip.end, False, False, False, False)
+    pip.process_spectrum(factor=1000.0, ref_mass=300.0939, cyclo_freq=255.723e3, mag_freq=0.001e3)
+    pip.process_peaks(mph=0.02, mpd=20.0, startx=290.0, endx=310.0)
+
     mask = pip.mask
     ind = pip.ind
 
-    x = np.asarray(pip.ms.mass)
-    y = np.asarray(pip.ms.spectrum)
-    print("mass =", x[mask][ind])
-    print("peak =", y[mask][ind])
+    x = np.asarray(pip.mass)
+    y = np.asarray(pip.spectrum)
 
     fig, ax = plt.subplots(1, 1)
     line1, = ax.plot(x[mask], y[mask], 'b', lw=1)
@@ -148,16 +144,13 @@ if __name__ == '__main__':
 
     ax.set_title("%s (mph=%.3f, mpd=%d)" %
                  ('Peak detection', pip.mph, pip.mpd))
-    # test legende
-    # fig.legend([line2], ['nnn'])
-
     # test annotations
     x = x[mask][ind]
     y = y[mask][ind]
     for i, j in zip(x, y):
-        #     ax.annotate(str(j), xy=(i, j))
-        ax.annotate(
-            "{:.3f} - {:.4f}".format(float(j), float(i)), xy=(i, j), fontsize=8)
+        text = "{:.3f}".format(float(j)) + " (" + \
+            "{:.4f}".format(float(i)) + ")"
+        ax.annotate(text, xy=(i, j), xytext=(i, j), size=8)
 
     plt.show()
 

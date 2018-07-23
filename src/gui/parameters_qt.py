@@ -8,18 +8,14 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
 class Ui_DockWidget_Parameters(object):
-
     def setupUi(self, DockWidget_Parameters):
         DockWidget_Parameters.setObjectName("DockWidget_Parameters")
         DockWidget_Parameters.resize(330, 315)
         DockWidget_Parameters.setMinimumSize(QtCore.QSize(330, 315))
         DockWidget_Parameters.setMaximumSize(QtCore.QSize(330, 315))
-        DockWidget_Parameters.setFeatures(
-            QtWidgets.QDockWidget.DockWidgetFloatable | QtWidgets.QDockWidget.DockWidgetMovable)
-        DockWidget_Parameters.setAllowedAreas(
-            QtCore.Qt.LeftDockWidgetArea | QtCore.Qt.RightDockWidgetArea)
+        DockWidget_Parameters.setFeatures(QtWidgets.QDockWidget.DockWidgetFloatable|QtWidgets.QDockWidget.DockWidgetMovable)
+        DockWidget_Parameters.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea|QtCore.Qt.RightDockWidgetArea)
         self.dockWidgetContents = QtWidgets.QWidget()
         self.dockWidgetContents.setObjectName("dockWidgetContents")
         self.groupBox_Excit = QtWidgets.QGroupBox(self.dockWidgetContents)
@@ -183,3 +179,4 @@ class Ui_DockWidget_Parameters(object):
         self.label_EjectDuration.setText(_translate("DockWidget_Parameters", "Dura. (ms)"))
         self.groupBox_Detect.setTitle(_translate("DockWidget_Parameters", "Detection"))
         self.label_Filename.setText(_translate("DockWidget_Parameters", "FILENAME"))
+

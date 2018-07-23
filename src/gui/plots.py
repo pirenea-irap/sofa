@@ -177,6 +177,39 @@ class MatplotlibWidget(Canvas):
 
 
 if __name__ == '__main__':
-    pass
+
+    import matplotlib.pyplot as plt
+    from pkg.pipeline import Pipeline
+
+    # step = 0.5 524288
+    filename = "Y:\\2018\\data_2018_05_17\\P1_2018_05_17_043.A00"
+    filename = "Y:\\2018\\data_2018_05_24\\P1_2018_05_24_009.A00"  # 5240000 points
+    filename = "Y:\\2018\\data_2018_05_16\\P1_2018_05_16_169.A00"  # 10000000 points
+    filename = "Y:\\2018\\data_2018_05_04\\P1_2018_05_04_010.A01"  # 32000000 points
+
+    pip = Pipeline(filename)
+    pip.process_signal(0, 32000000, False, False, False, False)
+    pip.process_spectrum(1000.0, 300.0939, 255.692 * 1e3, 0.001 * 1e3)
+#     x = pip.mass
+#     mask = [(x >= 10.0) & (x <= 1000.0)]
+#     x = pip.mass[mask]
+#     print(len(x))
+    x = pip.freq
+    mask = [(x >= 10.0) & (x <= 800000.0)]
+    x = pip.freq[mask]
+    print(len(x))
+
+    y = pip.spectrum[mask]
+
+
+#     y = pip.spectrum[10:1000000]
+#     x = pip.mass[10:1000000]
+    fig, ax = plt.subplots(1, 1)
+    # signal
+#     y = pip.signal
+#     x = np.arange(len(y)) * pip.step * 1e3
+    # mass
+    ax.plot(x, y)
+    plt.show()
 else:
     log.info("Importing... %s", __name__)

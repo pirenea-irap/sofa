@@ -241,12 +241,13 @@ class AnalysisGUI(QDockWidget):
                         strZero = "2*N zeros"
 
                 with open(ascii_name, mode='w', encoding='utf_8') as file:
-                    file.write('{0}\n\n'.format(self.filename.split(os.sep)[-1]))
-                    file.write('Ref. mass (u)     : {0:9.5f}\n'.format(float(self.ref_mass)))
-                    file.write('Cycl. Freq. (kHz) : {0:9.5f}\n'.format(float(self.cyclo_freq)))
-                    file.write('Mag. Freq. (kHz)  : {0:9.5f}\n\n'.format(float(self.mag_freq)))
-                    file.write('Start : {0:d}, End : {1:d}\n'.format(self.start_signal, self.end_signal))
-                    file.write('{0}, and {1}\n\n'.format(strHann, strZero))
+                    file.write('# {0}\n#\n'.format(self.filename.split(os.sep)[-1]))
+                    file.write('# Ref. mass (u)     : {0:9.5f}\n'.format(float(self.ref_mass)))
+                    file.write('# Cycl. Freq. (kHz) : {0:9.5f}\n'.format(float(self.cyclo_freq)))
+                    file.write('# Mag. Freq. (kHz)  : {0:9.5f}\n#\n'.format(float(self.mag_freq)))
+                    file.write('# Start : {0:d}, End : {1:d}\n'.format(self.start_signal,
+                                                                       self.end_signal))
+                    file.write('# {0}, and {1}\n#\n'.format(strHann, strZero))
                     for i in range(len(x)):
                         file.write('{0:<10.6f} {1:f}\n'.format(x[i], y[i]))
             except (IOError) as error:
