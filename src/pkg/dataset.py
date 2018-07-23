@@ -28,12 +28,8 @@ class RawDataset(object):
     :Example:
 
     >>> from pkg.dataset import RawDataset
-    >>> s = RawDataset()
-    >>> s.read("G:\\DATA_PIRENEA_OLD\\2014\\data140626\\26_06_2014_001.A00")
-    >>> print ("Number of points: ", len(s.data))
-    Number of points:  524288
-    >>> print ("Step time: ", s.step)
-    Step time:  5e-07
+    >>> filename = "Y:\\2018\\data_2018_07_20\\P1_2018_07_20_001.A00"
+    >>> s = RawDataset(filename)
     """
 
     def __init__(self, filename=""):
@@ -54,8 +50,8 @@ class RawDataset(object):
 
     def __read_file(self):
         """
-        Read a PIRENEA OLD binary file, in big-endian format.
-        Populate signal[] with the raw signal values and stepTime in seconds.
+        Read a PIRENEA binary file, in big-endian format.
+        Populate signal[] with the raw signal values and step in microseconds.
         """
         try:
             # Read first integer with number of points
@@ -63,30 +59,29 @@ class RawDataset(object):
             data = np.fromfile(self.filename, dtype=dt, count=1)
             self.points = int(data['points'])
             filesize = os.path.getsize(self.filename)
-            # new PIRENEA setup
+            # new PIRENEA setup : samples written as long integer
             if (filesize < self.points * 4):
                 dt = np.dtype([('points', '>i4'), ('samples', '>i2', (self.points,)),
                                ('step', '>f4'), ('gain', '>f4'), ('offset', '>f4')])
                 data = np.fromfile(self.filename, dtype=dt)
                 self.signal = data['samples'].ravel() * data['gain'] + data['offset']
-                # print(data['points'], data['step'], data['gain'], data['offset'])
-                self.step = float(data['step'])  # step in microseconds
+                self.step = float(data['step'])  # step in seconds
+
+                # No script for new PIRENEA setup
+                self.text = ""
 
             else:
-                # old PIRENEA setup
+                # old PIRENEA setup : samples written as float
                 dt = np.dtype([('points', '>i4'), ('samples', '>f', (self.points,)),
                                ('step', '>f')])
                 data = np.fromfile(self.filename, dtype=dt)
                 self.signal = data['samples'].ravel()
                 self.step = float(data['step']) * 1e-6  # step in microseconds
 
-            # Setup format of the binary part and read it (from is faster)
-#             dt = np.dtype(
-#                 [('points', '>i4'), ('samples', '>f', (self.points,)), ('step', '>f')])
-            # Skip the binary part and read the script (readlines is faster)
-            with open(self.filename, mode="rb") as fir:
-                fir.read(4 + (4 * self.points) + 4)
-                self.text = fir.readlines()
+                # Skip the binary part and read the script (readlines is faster)
+                with open(self.filename, mode="rb") as fir:
+                    fir.read(4 + (4 * self.points) + 4)
+                    self.text = fir.readlines()
 
             if len(self.text) > 0:
                 self.scriptable = True
@@ -170,99 +165,35 @@ class RawDataset(object):
 if __name__ == '__main__':
 
     """
-    main method to avoid error messages in pylint.
+    main method to test this script as a unit test.
     """
     import matplotlib.pyplot as plt
 
-#     filename = "G:\\PIRENEA_manips\\2014\\data_2014_07_30\\2014_07_30_001.A00"
-# #     filename = "D:\\PIRENEA_manips\\data140515\\15_05_2014_001.A00"
-# #     filename = "G:\\DATA_PIRENEA_OLD\\DATA_2014\\data140515\\15_05_2014_001.A00"
-#     raw = RawDataset(filename)
-#     points = len(raw.signal)
-#     print("Number of points: ", points)
-#     print("Step time: ", raw.step)
-#     print("first points", raw.signal[0:8])
-#     print("last points", raw.signal[524280:])
-#
-# #     file = open(filename, 'rb')
-# #     header = file.read(149)
-# #     contents = file.read(4)
-# #     points = struct.unpack('>i', contents)[0]
-#
-#     dt = np.dtype([('points', '>i4')])
-#     data = np.fromfile(filename, dtype=dt, count=1)
-#     points = data['points'].ravel()
-#     print("dt points: ", points, type(points))
-#     t = time.time()
-#     dt = np.dtype(
-#         [('length', '>i4'), ('samples', '>f', (points,)), ('step', '>f')])
-#     data = np.fromfile(filename, dtype=dt)
-#     # NB: count can be omitted -- it just reads the whole file then
-#     signal = data['samples'].ravel()
-#     step = data['step'].ravel()
-#     t1 = time.time() - t
-#
-#     print("type de series", type(signal), len(signal))
-#     print("val first", signal[0:10])
-#     print("setp ", step, type(step))
-#     print("time", t1)
-#
-#     t = time.time()
-#     with open(filename, mode="rb") as fir:
-#         contents = fir.read(4 + (4 * points) + 4)
-#         text = fir.readlines()
-#     t1 = time.time() - t
-#     print("time script", t1)
+#     filename = "D:\\PIRENEA\\PIRENEA_manips\\2014\\data_2014_05_12\\2014_05_12_004.A00"
+#     filename = "F:\\PIRENEA_manips\\2015\\data_2015_02_11\\2015_02_11_001.A00"
+    filename = "Y:\\2018\\data_2018_07_20\\P1_2018_07_20_025.A00"
 
-    filename = "D:\\f8.bin"
+    raw = RawDataset(filename)
+    print("Number of points: ", raw.points)
+    print("Step time: ", raw.step)
+    print("first points:", raw.signal[0:8])
+    print("last points:", raw.signal[:-4])
 
-    dt = np.dtype([('points', '>i4')])
-    data = np.fromfile(filename, dtype=dt, count=1)
-    points = data['points'].ravel()
-    print("dt points: ", points, type(points))
+    truncated = raw.truncate(10, 100)
+    print("length of truncated=", len(truncated), "length of signal=", len(raw.signal))
 
-    dt = np.dtype([('length', '>i4'), ('samples', '>f8', (points,))])
-    data = np.fromfile(filename, dtype=dt)
-    # NB: count can be omitted -- it just reads the whole file then
-    signal = data['samples'].ravel()
-    print("type de series", type(signal), len(signal))
-    print("val first", signal[0:10])
-    print("len=", len(signal))
-    x = np.arange(len(signal))
-    fig, (ax1, ax2) = plt.subplots(2, 1)
-    ax1.plot(x, signal)
-#     plt.show()
+    hann = raw.hann(raw.signal, True)
 
-    filename = "D:\\i2.bin"
+    signal = raw.signal
+#     signal = hann
+#     signal = truncated
+    points = len(signal)
 
-    dt = np.dtype([('points', '>i4')])
-    data = np.fromfile(filename, dtype=dt, count=1)
-    points = data['points'].ravel()
-    print("dt points: ", points, type(points))
-
-    dt = np.dtype([('length', '>i4'), ('samples', '>i2', (points,))])
-    data = np.fromfile(filename, dtype=dt)
-    # NB: count can be omitted -- it just reads the whole file then
-    signal = data['samples'].ravel()
-    factor = 2**16
-    signal = signal * 2.0 / factor
-    print("type de series", type(signal), len(signal))
-    print("val first", signal[0:10])
-    print("len=", len(signal))
-    x = np.arange(len(signal))
-    ax2.plot(x, signal)
+    x = np.arange(points)
+    # convert time in milliseconds
+    x = x * raw.step * 1.e3
+    plt.plot(x, signal)
     plt.show()
-
-#         import matplotlib.pyplot as plt
-#         xpoints = num.arange(len(raw.signal))
-#         plt.plot(xpoints, raw.signal)
-#         plt.show()
-#
-#         raw.truncate(raw.start, np.round(len(raw.signal) / 2))
-#
-#         xpoints = num.arange(len(raw.truncated))
-#         plt.plot(xpoints, raw.truncated)
-#         plt.show()
 
 else:
     log.info("Importing... %s", __name__)

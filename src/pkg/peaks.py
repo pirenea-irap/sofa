@@ -234,37 +234,28 @@ if __name__ == '__main__':
     # step = 0.5 524288
     filename = "G:\\PIRENEA_manips\\2014\\data_2014_06_26\\2014_06_26_011.A00"
     filename = "G:\\PIRENEA_manips\\2014\\data_2014_07_30\\2014_07_30_001.A00"
+    filename = "Y:\\2018\\data_2018_07_20\\P1_2018_07_20_025.A00"
 
-    data = RawDataset(filename)
-    data.hann()  # half window
+    raw = RawDataset(filename)
 
-    points = len(data.signal)
-    start = data.start
-    end = round(points / 2)
-    data.truncate(start, end)
-
-    print("len signal=", len(data.signal))
-    print("len truncated=", len(data.truncated))
-
-    signal = data.truncated
+    signal = raw.signal
+    step = raw.step
 
     # Real FFT on complete signal
-    step = data.step
-    print("step=", step)
     fs = FrequencySpectrum(signal, step)
     y = fs.spectrum * 1000.0        # ??? according to Anthony
-    # x = fs.freq / 1000.0            # in kHz
 
     # Calculate mass
     x = fs.freq
-    ms = MassSpectrum(x, y)
+    ms = MassSpectrum(x, ref_mass=300.0939, cyclo_freq=255.723e3, mag_freq=0.001e3)
+    xx = np.array(ms.mass)
+
     # Auto calib
     ref_mass = 300.0939
     accuracy = 0.1
-    # ref_mass = 18.0
-    ms.basic_recalibrate(ref_mass, accuracy)
     x = ms.mass
 
+    # Arbitrary limits for peak detection set around ref_mass
     delta = 10.0
     startx = ref_mass - delta / 2
     endx = ref_mass + delta / 2
@@ -272,19 +263,14 @@ if __name__ == '__main__':
     p = Peaks()
 
     mph, mpd, mask = p.prepare_detect(ref_mass, accuracy, x, y, startx, endx)
-    print("type mask", type(mask))
-    print("mph=", mph, " mpd=", mpd, "len de mask y", len(y[mask]))
     # Detect peak on rising edge
     edge = 'rising'
     # Detect peak greater than threshold
     threshold = 0.0
-    # Don't use default plot
-    show = False
+    # Adjust mph to detect more or less peaks
+    mph = mph * 3.0
 
     ind = p.detect_peaks(y[mask], mph, mpd, threshold, edge)
-    print("type ind", type(ind))
-    print("mass =", x[mask][ind])
-    print("inten=", y[mask][ind])
 
     fig, ax = plt.subplots(1, 1)
     line1, = ax.plot(x[mask], y[mask], 'b', lw=1)
@@ -294,15 +280,13 @@ if __name__ == '__main__':
 
     ax.set_title("%s (mph=%.3f, mpd=%d, threshold=%s, edge='%s')"
                  % ('Peak detection', mph, mpd, str(threshold), edge))
-    # test legende
-    # fig.legend([line2], ['nnn'])
-
     # test annotations
     x = x[mask][ind]
     y = y[mask][ind]
     for i, j in zip(x, y):
-        #     ax.annotate(str(j), xy=(i, j))
-        ax.annotate("{:.3f}".format(float(j)), xy=(i, j))
+        text = "{:.3f}".format(float(j)) + " (" + \
+            "{:.4f}".format(float(i)) + ")"
+        ax.annotate(text, xy=(i, j), xytext=(i, j), size=8)
 
     plt.show()
 
