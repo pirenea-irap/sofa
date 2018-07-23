@@ -45,9 +45,11 @@ class DataSelectorGUI(QDockWidget):
         self.ui.comboBox_Acquis.currentIndexChanged.connect(self.fill_accums)
 #         self.ui.checkBox_AutoUpdate.stateChanged.connect(self.toggle_update)
         self.ui.pushButton_StartAnalysis.clicked.connect(self.emit_signals)
+        self.ui.pushButton_GetLast.clicked.connect(self.get_last)
 
     def fill_year(self):
         log.debug("event from %s", self.sender())
+        self.ui.pushButton_GetLast.hide()
         self.ui.comboBox_Year.clear()
         self.folder = self.ui.lineEdit_Folder.text()
         li = self.filesAndDirs.get_years(self.folder)
@@ -56,6 +58,7 @@ class DataSelectorGUI(QDockWidget):
 
     def fill_month(self):
         log.debug("event from %s", self.sender())
+        self.ui.pushButton_GetLast.hide()
         self.ui.comboBox_Month.clear()
         self.year = self.ui.comboBox_Year.currentText()
         if self.year:
@@ -65,6 +68,7 @@ class DataSelectorGUI(QDockWidget):
 
     def fill_day(self):
         log.debug("event from %s", self.sender())
+        self.ui.pushButton_GetLast.hide()
         self.ui.comboBox_Day.clear()
         self.ui.lineEdit_Directory.clear()
         self.month = self.ui.comboBox_Month.currentText()
@@ -75,6 +79,7 @@ class DataSelectorGUI(QDockWidget):
 
     def fill_setup(self):
         log.debug("event from %s", self.sender())
+        self.ui.pushButton_GetLast.hide()
         self.ui.comboBox_Setup.clear()
         self.day = self.ui.comboBox_Day.currentText()
         if self.day:
@@ -85,7 +90,7 @@ class DataSelectorGUI(QDockWidget):
                 setups = self.filesAndDirs.get_setup(self.directory)
                 self.ui.comboBox_Setup.addItems(setups)
 
-    def fill_spectra(self):
+    def fill_spectra(self, last=False):
         log.debug("event from %s", self.sender())
         self.ui.comboBox_Number.clear()
         self.setup = self.ui.comboBox_Setup.currentText()
@@ -93,6 +98,8 @@ class DataSelectorGUI(QDockWidget):
             spectra = self.filesAndDirs.get_spectra(self.directory, self.setup)
             if spectra:
                 self.ui.comboBox_Number.addItems(spectra)
+                if last:
+                    self.ui.comboBox_Number.setCurrentIndex(len(spectra) - 1)
 
     def fill_acquis(self):
         log.debug("event from %s", self.sender())
@@ -123,6 +130,7 @@ class DataSelectorGUI(QDockWidget):
     def emit_signals(self):
         log.debug("event from %s", self.sender())
         self.accum = self.ui.comboBox_Accum.currentText()
+        self.ui.pushButton_GetLast.show()
         if self.accum:
             spectrumName = self.filesAndDirs.get_spectrumName(
                 self.directory, self.year, self.month, self.day,
@@ -131,6 +139,12 @@ class DataSelectorGUI(QDockWidget):
             self.masstabRaisedSignal.emit(spectrumName)
         else:
             log.error("No data, accumulation not selected")
+
+    def get_last(self):
+        log.debug("event from %s", self.sender())
+        self.fill_spectra(last=True)
+        self.fill_acquis()
+        self.fill_accums()
 
 
 if __name__ == '__main__':

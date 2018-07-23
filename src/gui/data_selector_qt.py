@@ -43,7 +43,7 @@ class Ui_DockWidget_DataSelector(object):
         self.label_Directory.setMaximumSize(QtCore.QSize(60, 16777215))
         self.label_Directory.setObjectName("label_Directory")
         self.pushButton_StartAnalysis = QtWidgets.QPushButton(self.dockWidgetContents)
-        self.pushButton_StartAnalysis.setGeometry(QtCore.QRect(90, 210, 130, 23))
+        self.pushButton_StartAnalysis.setGeometry(QtCore.QRect(110, 210, 100, 23))
         self.pushButton_StartAnalysis.setObjectName("pushButton_StartAnalysis")
         self.groupBox = QtWidgets.QGroupBox(self.dockWidgetContents)
         self.groupBox.setGeometry(QtCore.QRect(9, 139, 300, 60))
@@ -103,6 +103,9 @@ class Ui_DockWidget_DataSelector(object):
         self.comboBox_Year.setMinimumSize(QtCore.QSize(70, 0))
         self.comboBox_Year.setMaxVisibleItems(15)
         self.comboBox_Year.setObjectName("comboBox_Year")
+        self.pushButton_GetLast = QtWidgets.QPushButton(self.dockWidgetContents)
+        self.pushButton_GetLast.setGeometry(QtCore.QRect(20, 210, 80, 23))
+        self.pushButton_GetLast.setObjectName("pushButton_GetLast")
         DockWidget_DataSelector.setWidget(self.dockWidgetContents)
 
         self.retranslateUi(DockWidget_DataSelector)
@@ -122,4 +125,5 @@ class Ui_DockWidget_DataSelector(object):
         self.label_Number.setText(_translate("DockWidget_DataSelector", "Number"))
         self.label_Setup.setText(_translate("DockWidget_DataSelector", "Setup"))
         self.lineEdit_Folder.setText(_translate("DockWidget_DataSelector", "D:\\PIRENEA\\DATA"))
+        self.pushButton_GetLast.setText(_translate("DockWidget_DataSelector", "Get Last"))
 
