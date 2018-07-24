@@ -50,6 +50,24 @@ class FrequencySpectrum(object):
         self.freq = f
         self.powerSpectrum = np.abs(self.spectrum) ** 2
 
+    def write_to_textFile(self, filename=""):
+        """
+        Writes a freq. spectrum to a file, in ASCII format.
+
+        """
+        self.filename = filename
+        if os.path.isfile(self.filename + "_sp.txt"):
+            log.info("Spectrum ASCII file already exists")
+        else:
+            with open(self.filename + "_sp.txt", mode="w", encoding='utf_8') as file:
+                n = len(self.spectrum)
+                linew = str(n) + "\n"
+                file.write(linew)
+                for i in range(n):
+                    linew = "{:.5E}".format(self.freq[i]) + "\t" + \
+                            "{:.5E}".format(self.spectrum[i]) + "\n"
+                    file.write(linew)
+
 
 class MassSpectrum(object):
 
@@ -118,38 +136,12 @@ class MassSpectrum(object):
         mask = [(xx > (r - accuracy)) & (xx < (r + accuracy))]
         maxy = max(y[mask])
         bad_mass = 0.0
-        ind = 0
         for i, j in enumerate(y[mask]):
             if j == maxy:
                 bad_mass = xx[mask][i]
-                ind = i
         delta_mass = (ref_mass / bad_mass)
         xx = np.array(self.mass) * delta_mass
         self.mass = xx
-
-    def write_to_textFile(self, filename=""):
-        """
-        Writes a mass spectrum to a file, in ASCII format.
-
-        """
-        self.filename = filename
-        if os.path.isfile(self.filename + "_sp.txt"):
-            log.info("Mass Spectrum ASCII file already exists")
-        else:
-            with open(self.filename + "_sp.txt", mode="w", encoding='utf_8') as file:
-                n = len(self.mass)
-                linew = str(n) + "\n"
-                file.write(linew)
-                for i in range(n):
-                    linew = "{:.5E}".format(self.mass[i])
-                    file.write(linew)
-                n = len(self.spectrum)
-                linew = str(n) + "\n"
-                file.write(linew)
-                for i in range(n):
-                    linew = "{:.5E}".format(self.freq[i]) + "\t" + \
-                            "{:.5E}".format(self.spectrum[i]) + "\n"
-                    file.write(linew)
 
 
 if __name__ == '__main__':
@@ -187,7 +179,7 @@ if __name__ == '__main__':
     ax2.set_ylabel('|rfft|')
 
     # Write to ASCII (could be long if lot of points)
-#     fs.write_to_textFile("D:\\PIRENEA\\FREQ_to_delete.txt")
+    fs.write_to_textFile("D:\\PIRENEA\\FREQ_to_delete2.txt")
 
     # Calculate mass with approximative calibration
     x = fs.freq
