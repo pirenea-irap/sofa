@@ -9,6 +9,7 @@ This module manage the GUI of the analysis.
 """
 import logging
 import os
+import numpy as np
 
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QDockWidget
@@ -104,7 +105,7 @@ class AnalysisGUI(QDockWidget):
         self.ui.spinBox_EndSignal.setValue(100000)
         # Mass calib
         self.ui.doubleSpinBox_RefMass.setValue(300.0939)
-        self.ui.doubleSpinBox_CycloFreq.setValue(255.727)
+        self.ui.doubleSpinBox_CycloFreq.setValue(255.692)
         self.ui.doubleSpinBox_MagFreq.setValue(0.001)
         self.ui.doubleSpinBox_PlotMassX1.setValue(10.0)
         self.ui.doubleSpinBox_PlotMassX2.setValue(1000.0)
@@ -120,9 +121,8 @@ class AnalysisGUI(QDockWidget):
         self.ascii_dir = ""
 
     def new_analysis(self, filename):
-        log.info("analysis of %s", filename)
+        log.debug("analysis of %s", filename)
         self.filename = filename
-#         shortname = str(self.filename).split(sep="\\")
         self.shortname = str(self.filename).split(os.sep)[-1]
         if len(self.ascii_dir) == 0:
             fold = os.sep.join(self.filename.split(os.sep)[0:-3])
@@ -158,6 +158,10 @@ class AnalysisGUI(QDockWidget):
             self.update_pipeline()
 
     def update_pipeline(self):
+        if (self.pip.end < int(self.ui.spinBox_EndSignal.value())):
+            self.ui.spinBox_EndSignal.setValue(self.pip.end)
+        self.end_signal = int(self.ui.spinBox_EndSignal.value())
+
         self.pip.process_signal(
             self.start_signal, self.end_signal, self.hann, self.half, self.zero, self.zero_twice)
         self.pip.process_spectrum(
@@ -169,12 +173,21 @@ class AnalysisGUI(QDockWidget):
     def emit_plot_signals(self):
         log.debug("event from %s", self.sender())
         self.update_pipeline()
-        self.plotSigRaisedSignal.emit(
-            self.shortname, self.pip.signal, float(self.step),
-            int(self.start_signal), int(self.end_signal))
 
-        self.plotSpecRaisedSignal.emit(
-            self.shortname, self.pip.spectrum, self.pip.freq)
+        # for signal > 1000000 points, decimate signal and frequency plot
+        roundVal = np.round(len(self.pip.signal) / 1e6)
+        if (roundVal > 1):
+            self.plotSigRaisedSignal.emit(
+                self.shortname, self.pip.signal[::roundVal], float(self.step * roundVal),
+                int(self.start_signal), int(self.end_signal / roundVal))
+            self.plotSpecRaisedSignal.emit(
+                self.shortname, self.pip.spectrum[::roundVal], self.pip.freq[::roundVal])
+        else:
+            self.plotSigRaisedSignal.emit(
+                self.shortname, self.pip.signal, float(self.step),
+                int(self.start_signal), int(self.end_signal))
+            self.plotSpecRaisedSignal.emit(
+                self.shortname, self.pip.spectrum, self.pip.freq)
 
         x = self.pip.mass
         mask = [(x >= self.mass_x1) & (x <= self.mass_x2)]
