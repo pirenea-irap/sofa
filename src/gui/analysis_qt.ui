@@ -69,7 +69,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Stop Signal</string>
+      <string>End Signal</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_Step">
@@ -139,7 +139,7 @@
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
      <property name="maximum">
-      <number>10000000</number>
+      <number>32000000</number>
      </property>
     </widget>
     <widget class="QSpinBox" name="spinBox_EndSignal">
@@ -158,7 +158,7 @@
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
      <property name="maximum">
-      <number>10000000</number>
+      <number>32000000</number>
      </property>
     </widget>
     <widget class="QSpinBox" name="spinBox_DefStartSignal">
@@ -845,7 +845,7 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup_Hann"/>
   <buttongroup name="buttonGroup_Zero"/>
+  <buttongroup name="buttonGroup_Hann"/>
  </buttongroups>
 </ui>
