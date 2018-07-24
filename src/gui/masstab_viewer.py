@@ -102,11 +102,17 @@ class MassTabViewerGUI(QDockWidget):
             new_dir = self.dir_name.replace("DATA", "DATA" + os.sep + "MASS")
             if not os.path.isdir(new_dir):
                 os.makedirs(new_dir)
-            answer = QFileDialog.getSaveFileName(self, 'MassTab File', new_dir)
-            filename = os.path.abspath(answer[0])
+
+            answer = QFileDialog.getSaveFileName(self, 'MassTab File', new_dir, "*.txt")
+            if (str(answer[0]).endswith(".txt")):
+                filename = os.path.abspath(answer[0])
+            else:
+                filename = os.path.abspath(answer[0]) + ".txt"
+
             log.debug("Written file %s...", filename)
             with open(filename, mode='w', encoding='utf_8') as file:
                 file.write(self.ui.plainTextEdit_Viewer.toPlainText())
+
         except (IOError) as error:
             log.error("Unable to write into: %s", error)
 
