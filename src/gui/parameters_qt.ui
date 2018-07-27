@@ -515,6 +515,35 @@
      <string>FILENAME</string>
     </property>
    </widget>
+   <widget class="QGroupBox" name="groupBox_Comment">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>311</width>
+      <height>250</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Comment</string>
+    </property>
+    <widget class="QTextEdit" name="textEdit_Comment">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>291</width>
+       <height>221</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <zorder>groupBox_Detect</zorder>
+   <zorder>groupBox_Eject</zorder>
+   <zorder>groupBox_Excit</zorder>
+   <zorder>lineEdit_File</zorder>
+   <zorder>label_Filename</zorder>
+   <zorder>groupBox_Comment</zorder>
   </widget>
  </widget>
  <resources/>
