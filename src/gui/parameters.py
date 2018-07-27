@@ -10,6 +10,8 @@ This module manages the GUI of the parameters viewer.
 from PyQt5.QtWidgets import QDockWidget
 
 from gui.parameters_qt import Ui_DockWidget_Parameters
+from pkg.xml import XMLPirenea
+
 import logging
 log = logging.getLogger('root')
 
@@ -39,9 +41,11 @@ class ParametersGUI(QDockWidget):
         log.debug("event from %s", self.sender())
         short = str(filename).split(sep="\\")
         self.ui.lineEdit_File.setText(short[-1])
+        self.filename = filename
 
         if pipeline.raw.scriptable:
             self.enable_parameters_box()
+            self.ui.groupBox_Comment.setVisible(False)
             s = pipeline.scr
             self.excitBuffer, self.excitation = s.get_excit()
             self.ejectBuffer, self.ejection = s.get_eject()
@@ -51,7 +55,13 @@ class ParametersGUI(QDockWidget):
             self.update_ejections()
             self.update_detection()
         else:
+            # clear previous comment
             self.disable_parameters_box()
+            self.ui.textEdit_Comment.clear()
+            self.ui.groupBox_Comment.setVisible(True)
+            xmltree = XMLPirenea(self.filename + ".xml")
+            comment = xmltree.get_comment()
+            self.ui.textEdit_Comment.append(comment)
 
     def toggle_ejection(self):
         log.debug("event from %s", self.sender())
