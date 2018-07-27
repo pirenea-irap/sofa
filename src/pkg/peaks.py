@@ -247,7 +247,7 @@ if __name__ == '__main__':
 
     # Calculate mass
     x = fs.freq
-    ms = MassSpectrum(x, ref_mass=300.0939, cyclo_freq=255.723e3, mag_freq=0.001e3)
+    ms = MassSpectrum(x, ref_mass=300.0939, cyclo_freq=255.692e3, mag_freq=0.001e3)
     xx = np.array(ms.mass)
 
     # Auto calib
