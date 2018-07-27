@@ -120,13 +120,6 @@ class RawDataset(object):
             self.start = 0
             self.end = round(self.points / 2)
 
-    def get_science(self):
-
-        if not self.dataReady:
-            log.error("Data NOT available, please read data first")
-
-        return self.signal, self.step
-
     def truncate(self, start=0, end=0):
         """
         Truncate the signal before start to remove excitation

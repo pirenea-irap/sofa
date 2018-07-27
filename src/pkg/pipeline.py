@@ -127,7 +127,7 @@ if __name__ == '__main__':
 
     pip = Pipeline(filename)
     pip.process_signal(pip.start, pip.end, False, False, False, False)
-    pip.process_spectrum(factor=1000.0, ref_mass=300.0939, cyclo_freq=255.723e3, mag_freq=0.001e3)
+    pip.process_spectrum(factor=1000.0, ref_mass=300.0939, cyclo_freq=255.692e3, mag_freq=0.001e3)
     pip.process_peaks(mph=0.02, mpd=20.0, startx=290.0, endx=310.0)
 
     mask = pip.mask
