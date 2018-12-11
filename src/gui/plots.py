@@ -123,13 +123,15 @@ class MatplotlibWidget(Canvas):
         self.figure = Figure(dpi=dpi)
         self.canvas = Canvas(self.figure)
         self.ax = self.figure.add_subplot(111)
-        self.ax.hold(False)
+#         self.ax.hold(False)
+        self.ax.clear()
 
         self.ax.set_title(title)
         self.ax.set_xlabel(xlabel)
         self.ax.set_ylabel(ylabel)
 
     def plot_data(self, x, y, title, xlabel, ylabel):
+        self.ax.clear()
         self.ax.plot(x, y)
         self.ax.set_title(title, size=10)
         self.ax.set_xlabel(xlabel)
@@ -137,7 +139,9 @@ class MatplotlibWidget(Canvas):
         self.draw()
 
     def plot_mass(self, x, y, title, xlabel, ylabel, hold=False):
-        self.ax.hold(hold)
+        #         self.ax.hold(False)
+        if not hold:
+            self.ax.clear()
         self.ax.plot(x, y)
         self.ax.set_title(title, size=10)
         self.ax.set_xlabel(xlabel)
@@ -148,12 +152,12 @@ class MatplotlibWidget(Canvas):
         min_x = x1
         max_x = x2
         # dummy plot to apply the hold=True command
-        self.ax.hold(False)
+#         self.ax.hold(False)
+        self.ax.clear()
         self.ax.plot(x, y)
         self.draw()
         # real plot
-        self.ax.hold(True)
-#         self.ax.plot(x, y)
+#         self.ax.hold(True)
         self.ax.plot(x, y, 'b')
         self.ax.plot(x[ind], y[ind], '+', mfc=None, mec='r', mew=2, ms=8)
         self.ax.set_title(title, size=10)
@@ -200,7 +204,6 @@ if __name__ == '__main__':
     print(len(x))
 
     y = pip.spectrum[mask]
-
 
 #     y = pip.spectrum[10:1000000]
 #     x = pip.mass[10:1000000]
