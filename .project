@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.python.pydev.pythonNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/masstab_loop.py</name>
+			<type>1</type>
+			<location>D:/S.O.F.T.S/PIRENEA/PYTHON/sofa/src/masstab_loop.py</location>
+		</link>
+	</linkedResources>
 </projectDescription>
