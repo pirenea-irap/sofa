@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'D:\S.O.F.T.S\PIRENEA\PYTHON\sofa\src\gui\main_window_qt.ui'
 #
-# Created by: PyQt5 UI code generator 5.5
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -73,7 +73,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "SOFA v1.7"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "SOFA v1.7.1"))
 
 from gui.analysis import AnalysisGUI
 from gui.data_selector import DataSelectorGUI
