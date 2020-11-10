@@ -8,7 +8,9 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_MainWindow(object):
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1600, 1000)
@@ -28,16 +30,16 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.dockWidget_DataSelector = DataSelectorGUI(MainWindow)
-        self.dockWidget_DataSelector.setFeatures(QtWidgets.QDockWidget.DockWidgetFloatable|QtWidgets.QDockWidget.DockWidgetMovable)
-        self.dockWidget_DataSelector.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea|QtCore.Qt.RightDockWidgetArea)
+        self.dockWidget_DataSelector.setFeatures(QtWidgets.QDockWidget.DockWidgetFloatable | QtWidgets.QDockWidget.DockWidgetMovable)
+        self.dockWidget_DataSelector.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea | QtCore.Qt.RightDockWidgetArea)
         self.dockWidget_DataSelector.setObjectName("dockWidget_DataSelector")
         self.dockWidgetContents = QtWidgets.QWidget()
         self.dockWidgetContents.setObjectName("dockWidgetContents")
         self.dockWidget_DataSelector.setWidget(self.dockWidgetContents)
         MainWindow.addDockWidget(QtCore.Qt.DockWidgetArea(1), self.dockWidget_DataSelector)
         self.dockWidget_Parameters = ParametersGUI(MainWindow)
-        self.dockWidget_Parameters.setFeatures(QtWidgets.QDockWidget.DockWidgetFloatable|QtWidgets.QDockWidget.DockWidgetMovable)
-        self.dockWidget_Parameters.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea|QtCore.Qt.RightDockWidgetArea)
+        self.dockWidget_Parameters.setFeatures(QtWidgets.QDockWidget.DockWidgetFloatable | QtWidgets.QDockWidget.DockWidgetMovable)
+        self.dockWidget_Parameters.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea | QtCore.Qt.RightDockWidgetArea)
         self.dockWidget_Parameters.setObjectName("dockWidget_Parameters")
         self.dockWidgetContents_2 = QtWidgets.QWidget()
         self.dockWidgetContents_2.setObjectName("dockWidgetContents_2")
@@ -45,23 +47,23 @@ class Ui_MainWindow(object):
         MainWindow.addDockWidget(QtCore.Qt.DockWidgetArea(1), self.dockWidget_Parameters)
         self.dockWidget_Analysis = AnalysisGUI(MainWindow)
         self.dockWidget_Analysis.setMinimumSize(QtCore.QSize(1000, 203))
-        self.dockWidget_Analysis.setFeatures(QtWidgets.QDockWidget.DockWidgetFloatable|QtWidgets.QDockWidget.DockWidgetMovable)
-        self.dockWidget_Analysis.setAllowedAreas(QtCore.Qt.BottomDockWidgetArea|QtCore.Qt.TopDockWidgetArea)
+        self.dockWidget_Analysis.setFeatures(QtWidgets.QDockWidget.DockWidgetFloatable | QtWidgets.QDockWidget.DockWidgetMovable)
+        self.dockWidget_Analysis.setAllowedAreas(QtCore.Qt.BottomDockWidgetArea | QtCore.Qt.TopDockWidgetArea)
         self.dockWidget_Analysis.setObjectName("dockWidget_Analysis")
         self.dockWidgetContents_3 = QtWidgets.QWidget()
         self.dockWidgetContents_3.setObjectName("dockWidgetContents_3")
         self.dockWidget_Analysis.setWidget(self.dockWidgetContents_3)
         MainWindow.addDockWidget(QtCore.Qt.DockWidgetArea(8), self.dockWidget_Analysis)
         self.dockWidget_MassTabSelector = MassTabSelectorGUI(MainWindow)
-        self.dockWidget_MassTabSelector.setFeatures(QtWidgets.QDockWidget.DockWidgetFloatable|QtWidgets.QDockWidget.DockWidgetMovable)
-        self.dockWidget_MassTabSelector.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea|QtCore.Qt.RightDockWidgetArea)
+        self.dockWidget_MassTabSelector.setFeatures(QtWidgets.QDockWidget.DockWidgetFloatable | QtWidgets.QDockWidget.DockWidgetMovable)
+        self.dockWidget_MassTabSelector.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea | QtCore.Qt.RightDockWidgetArea)
         self.dockWidget_MassTabSelector.setObjectName("dockWidget_MassTabSelector")
         self.dockWidgetContents_4 = QtWidgets.QWidget()
         self.dockWidgetContents_4.setObjectName("dockWidgetContents_4")
         self.dockWidget_MassTabSelector.setWidget(self.dockWidgetContents_4)
         MainWindow.addDockWidget(QtCore.Qt.DockWidgetArea(2), self.dockWidget_MassTabSelector)
         self.dockWidget_MassTabViewer = MassTabViewerGUI(MainWindow)
-        self.dockWidget_MassTabViewer.setAllowedAreas(QtCore.Qt.BottomDockWidgetArea|QtCore.Qt.TopDockWidgetArea)
+        self.dockWidget_MassTabViewer.setAllowedAreas(QtCore.Qt.BottomDockWidgetArea | QtCore.Qt.TopDockWidgetArea)
         self.dockWidget_MassTabViewer.setObjectName("dockWidget_MassTabViewer")
         self.dockWidgetContents_5 = QtWidgets.QWidget()
         self.dockWidgetContents_5.setObjectName("dockWidgetContents_5")
@@ -73,7 +75,8 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "SOFA v1.7.1"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "SOFA v1.8"))
+
 
 from gui.analysis import AnalysisGUI
 from gui.data_selector import DataSelectorGUI

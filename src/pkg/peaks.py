@@ -232,9 +232,7 @@ if __name__ == '__main__':
     from pkg.spectrum import MassSpectrum
 
     # step = 0.5 524288
-    filename = "G:\\PIRENEA_manips\\2014\\data_2014_06_26\\2014_06_26_011.A00"
-    filename = "G:\\PIRENEA_manips\\2014\\data_2014_07_30\\2014_07_30_001.A00"
-    filename = "Y:\\2018\\data_2018_07_20\\P1_2018_07_20_025.A00"
+    filename = "D:\\PIRENEA\\DATA\\2018\\data_2018_07_20\\P1_2018_07_20_025.A00"
 
     raw = RawDataset(filename)
 
@@ -243,7 +241,7 @@ if __name__ == '__main__':
 
     # Real FFT on complete signal
     fs = FrequencySpectrum(signal, step)
-    y = fs.spectrum * 1000.0        # ??? according to Anthony
+    y = fs.spectrum * 1000.0  # ??? according to Anthony
 
     # Calculate mass
     x = fs.freq

@@ -21,13 +21,16 @@ if __name__ == '__main__':
     out_filename = "D:\\PIRENEA\\DATA\\MASS\\My_Masstab_File.txt"
 
     # Put your own path here
-    fpath = "D:\\PIRENEA\\DATA\\2019\\data_2019_01_21"
+    fpath = "D:\\PIRENEA\\DATA\\2018\\data_2018_11_06"
     num = input("PATH = " + fpath + ": \n" + "==> spectrum number ? (ex: 070): ")
 
     # For Gabi: howto take a list of spectra (here 10 accumulations)
     filename_list = [f for f in os.listdir(fpath)
                      if f[-4:] != ".xml"
                      if f[-7:-4] == str(num)]
+    # For Gabi: howto take a list of spectra (here all spectra of the day)
+    filename_list = [f for f in os.listdir(fpath)
+                     if f[-4:] != ".xml"]
     for i, filename in enumerate(filename_list):
         filename_list[i] = os.path.join(fpath, filename)
 

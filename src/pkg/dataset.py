@@ -57,15 +57,15 @@ class RawDataset(object):
             # Read first integer with number of points
             dt = np.dtype([('points', '>i4')])
             data = np.fromfile(self.filename, dtype=dt, count=1)
-            self.points = int(data['points'])
+            self.points = data['points'][0]
             filesize = os.path.getsize(self.filename)
             # new PIRENEA setup : samples written as long integer
             if (filesize < self.points * 4):
-                dt = np.dtype([('points', '>i4'), ('samples', '>i2', (self.points,)),
+                dt = np.dtype([('points', '>i4'), ('samples', '>i2', self.points),
                                ('step', '>f4'), ('gain', '>f4'), ('offset', '>f4')])
                 data = np.fromfile(self.filename, dtype=dt)
                 self.signal = data['samples'].ravel() * data['gain'] + data['offset']
-                self.step = float(data['step'])  # step in seconds
+                self.step = data['step'][0]  # step in seconds
 
                 # No script for new PIRENEA setup
                 self.text = ""
@@ -76,7 +76,7 @@ class RawDataset(object):
                                ('step', '>f')])
                 data = np.fromfile(self.filename, dtype=dt)
                 self.signal = data['samples'].ravel()
-                self.step = float(data['step']) * 1e-6  # step in microseconds
+                self.step = data['step'][0] * 1e-6  # step in microseconds
 
                 # Skip the binary part and read the script (readlines is faster)
                 with open(self.filename, mode="rb") as fir:
@@ -164,7 +164,7 @@ if __name__ == '__main__':
 
 #     filename = "D:\\PIRENEA\\PIRENEA_manips\\2014\\data_2014_05_12\\2014_05_12_004.A00"
 #     filename = "F:\\PIRENEA_manips\\2015\\data_2015_02_11\\2015_02_11_001.A00"
-    filename = "Y:\\2018\\data_2018_07_20\\P1_2018_07_20_025.A00"
+    filename = "D:\\PIRENEA\\DATA\\2018\\data_2018_07_20\\P1_2018_07_20_025.A00"
 
     raw = RawDataset(filename)
     print("Number of points: ", raw.points)

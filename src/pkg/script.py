@@ -146,8 +146,10 @@ if __name__ == '__main__':
     filename = "G:\\PIRENEA_manips\\2006\\data_2006_06_07\\2006_06_07_002.A00"
     filename = "G:\\PIRENEA_manips\\2014\\data_2014_05_12\\2014_05_12_001.B00"
     filename = "D:\\PIRENEA\\PIRENEA_manips\\2014\\data_2014_07_30\\2014_07_30_001.A00"
-#     filename = "D:\\PIRENEA_manips\\data140515\\15_05_2014_001.A00"
-#     filename = "G:\\DATA_PIRENEA_OLD\\DATA_2014\\data140515\\15_05_2014_001.A00"
+    filename = "D:\\PIRENEA\\DATA\\2018\\data_2018_07_20\\P1_2018_07_20_025.A00"
+    # filename = "D:\\PIRENEA_manips\\data140515\\15_05_2014_001.A00"
+    # filename = "G:\\DATA_PIRENEA_OLD\\DATA_2014\\data140515\\15_05_2014_001.A00"
+    filename = "D:\\PIRENEA\\DATA\\2018\\data_2018_07_20\\P1_2018_07_20_025.A00"
     d = RawDataset(filename)
 
     s = Script(filename)

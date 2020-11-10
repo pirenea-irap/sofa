@@ -19,12 +19,19 @@ if __name__ == '__main__':
     from pkg.pipeline import Pipeline
     from pkg.peaks import Peaks
 
-    out_filename = "D:\\PIRENEA\\My_Masstab_File.txt"
+    out_filename = "D:\\PIRENEA\\DATA\\MASS\\My_Masstab_Loop.txt"
 
-    filename_list = ["Y:\\2018\\data_2018_07_20\\P1_2018_07_20_023.A00",
-                     "Y:\\2018\\data_2018_07_20\\P1_2018_07_20_024.A00",
-                     "Y:\\2018\\data_2018_07_20\\P1_2018_07_20_025.A00",
-                     "Y:\\2018\\data_2018_07_20\\P1_2018_07_20_026.A00"]
+    fpath = "D:\\PIRENEA\\DATA\\2018\\data_2018_11_06"
+
+    # For Gabi: howto take a list of spectra (here all spectra of one day)
+    filename_list = [f for f in os.listdir(fpath)
+                     if f[-4:] != ".xml"]
+
+    for i, filename in enumerate(filename_list):
+        filename_list[i] = os.path.join(fpath, filename)
+
+    # to take a few spectra (first 20 for example) of a list
+    filename_list = filename_list[:20]
 
     mass_list = [300.0, 298.0, 296.0, 301.0, 302.0]
     mass_list = sorted(mass_list)

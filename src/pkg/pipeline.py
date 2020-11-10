@@ -71,7 +71,7 @@ class Pipeline(object):
         fs = FrequencySpectrum(self.signal, self.step)
 #         t1 = time.time() - t
         self.spectrum = fs.spectrum * factor
-        self.freq = fs.freq            # in Hz
+        self.freq = fs.freq  # in Hz
         ms = MassSpectrum(self.freq, ref_mass, cyclo_freq, mag_freq)
         self.mass = ms.mass
 
@@ -123,7 +123,7 @@ if __name__ == '__main__':
     import matplotlib.pyplot as plt
 
 #     filename = "G:\\PIRENEA_manips\\2014\\data_2014_06_26\\2014_06_26_011.A00"
-    filename = "Y:\\2018\\data_2018_07_20\\P1_2018_07_20_025.A00"
+    filename = "D:\\PIRENEA\\DATA\\2018\\data_2018_07_20\\P1_2018_07_20_025.A00"
 
     pip = Pipeline(filename)
     pip.process_signal(pip.start, pip.end, False, False, False, False)
@@ -142,7 +142,7 @@ if __name__ == '__main__':
     line2, = ax.plot(
         x[mask][ind], y[mask][ind], '+', mfc=None, mec='r', mew=2, ms=8)
 
-    ax.set_title("%s (mph=%.3f, mpd=%d)" %
+    ax.set_title("%s (mph=%.3f, mpd=%d)" % 
                  ('Peak detection', pip.mph, pip.mpd))
     # test annotations
     x = x[mask][ind]

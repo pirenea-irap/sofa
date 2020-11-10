@@ -175,7 +175,7 @@ class AnalysisGUI(QDockWidget):
         self.update_pipeline()
 
         # for signal > 1000000 points, decimate signal and frequency plot
-        roundVal = np.round(len(self.pip.signal) / 1e6)
+        roundVal = int(np.round(len(self.pip.signal) / 1e6))
         if (roundVal > 1):
             self.plotSigRaisedSignal.emit(
                 self.shortname, self.pip.signal[::roundVal], float(self.step * roundVal),

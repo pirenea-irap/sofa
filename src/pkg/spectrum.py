@@ -156,8 +156,9 @@ if __name__ == '__main__':
     fig, (ax1, ax2, ax3) = plt.subplots(3, 1)
 
     # Read PIRENEA signal
-#     filename = "G:\\PIRENEA_manips\\2014\\data_2014_06_26\\2014_06_26_010.A00"
-    filename = "Y:\\2018\\data_2018_07_20\\P1_2018_07_20_025.A00"
+    # filename = "G:\\PIRENEA_manips\\2014\\data_2014_06_26\\2014_06_26_010.A00"
+    # filename = "Y:\\2018\\data_2018_07_20\\P1_2018_07_20_025.A00"
+    filename = "D:\\PIRENEA\\DATA\\2018\\data_2018_07_20\\P1_2018_07_20_025.A00"
 
     raw = RawDataset(filename)
     points = len(raw.signal)
@@ -173,13 +174,13 @@ if __name__ == '__main__':
     # Real FFT on complete signal
     fs = FrequencySpectrum(y, step)
     y = fs.spectrum * 1000.0
-    x = fs.freq / 1000.0            # in kHz
+    x = fs.freq / 1000.0  # in kHz
     ax2.plot(x, y)
     ax2.set_xlabel('Freq (kHz)')
     ax2.set_ylabel('|rfft|')
 
     # Write to ASCII (could be long if lot of points)
-    fs.write_to_textFile("D:\\PIRENEA\\FREQ_to_delete2.txt")
+    fs.write_to_textFile("D:\\PIRENEA\\DATA\\ASCII\\FREQ_to_delete2.txt")
 
     # Calculate mass with approximative calibration
     x = fs.freq

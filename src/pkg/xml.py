@@ -46,7 +46,7 @@ if __name__ == '__main__':
     """
     main method to test this script as a unit test.
     """
-    filename = "Y:\\2018\\data_2018_07_20\\P1_2018_07_20_001.A00.xml"
+    filename = "D:\\PIRENEA\\DATA\\2018\\data_2018_07_20\\P1_2018_07_20_025.A00.xml"
     xml = XMLPirenea(filename)
 
     # Retrieve the comment entered by user
